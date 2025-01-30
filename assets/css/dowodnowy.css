@@ -29,7 +29,7 @@ p.czas {
 
 main {
     position: relative;
-    background-image: url(https://i.imgur.com/l20kVrz.jpeg);
+    background-image: url(assets/dowod_files/dowodnowybg.png);
     margin: 16px 20px 0px 20px;
     height: 385px;
     display: flex;
@@ -250,10 +250,10 @@ main {
     background-size: cover;
 }
 .wybierzitem#wi1 {
-    background-image: url(dowod_files/warstwa_1.png);
+    background-image: url(assets/dowod_files/warstwa_1.png);
 }
 .wybierzitem#wi2 {
-    background-image: url(dowod_files/warstwa_2.png);
+    background-image: url(assets/dowod_files/warstwa_2.png);
 }
 
 .wybierzitem button{
@@ -310,10 +310,10 @@ main {
     margin-bottom: 16px;
 }
 #wi1{
-    background-image: url(dowod_files/warstwa_1.png);
+    background-image: url(assets/dowod_files/warstwa_1.png);
 }
 #wi2{
-    background-image: url(dowod_files/warstwa_2.png);
+    background-image: url(assets/dowod_files/warstwa_2.png);
 }
 .ovh{
     overflow: hidden;
