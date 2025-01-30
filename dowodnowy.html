@@ -254,19 +254,33 @@
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
-       <section id="praw">
+      <section id="praw">
     <input type="text" id="nameInput" placeholder="Wpisz imię">
+    <p id="nameDisplay"><strong>BRAK</strong></p>
     <p class="sub">Imię (Imiona)</p>
+</section>
+
+<style>
+    #nameDisplay strong {
+        font-weight: bold;
+    }
+</style>
 
 <script>
-    document.getElementById('nameInput').addEventListener('input', function() {
-        localStorage.setItem('userName', this.value);
+    const input = document.getElementById('nameInput');
+    const nameDisplay = document.getElementById('nameDisplay');
+
+    input.addEventListener('input', function() {
+        const name = this.value.trim();
+        nameDisplay.innerHTML = name ? `<strong>${name}</strong>` : "<strong>BRAK</strong>";
+        localStorage.setItem('userName', name);
     });
 
     window.onload = function() {
         const savedName = localStorage.getItem('userName');
         if (savedName) {
-            document.getElementById('nameInput').value = savedName;
+            input.value = savedName;
+            nameDisplay.innerHTML = `<strong>${savedName}</strong>`;
         }
     };
 </script>
