@@ -255,42 +255,33 @@
             </div>
         </section>
 <section id="praw">
-    <input type="text" id="nameInput" placeholder="Wpisz imię">
-    <p id="nameDisplay"><span>BRAK</span></p>
+    <input type="text" id="nameInput" placeholder="Wpisz imię" value="BRAK">
     <p class="sub">Imię (Imiona)</p>
 </section>
 
 <style>
-    #nameDisplay span {
-        font-weight: normal; /* Domyślnie BRAK jest normalny */
-    }
-    #nameDisplay.bold span {
-        font-weight: bold; /* Wpisane imię jest pogrubione */
+    #nameInput {
+        font-weight: bold; /* Pogrubienie wpisanego tekstu */
+        border: none;
+        outline: none;
+        font-size: inherit;
+        text-align: center;
+        width: 100%;
+        background: none;
     }
 </style>
 
 <script>
     const input = document.getElementById('nameInput');
-    const nameDisplay = document.getElementById('nameDisplay').querySelector('span');
 
     input.addEventListener('input', function() {
-        const name = this.value.trim();
-        if (name) {
-            nameDisplay.textContent = name;
-            nameDisplay.parentElement.classList.add('bold'); // Pogrubia imię
-        } else {
-            nameDisplay.textContent = "BRAK";
-            nameDisplay.parentElement.classList.remove('bold'); // BRAK zostaje normalny
-        }
-        localStorage.setItem('userName', name);
+        localStorage.setItem('userName', this.value.trim());
     });
 
     window.onload = function() {
         const savedName = localStorage.getItem('userName');
         if (savedName) {
             input.value = savedName;
-            nameDisplay.textContent = savedName;
-            nameDisplay.parentElement.classList.add('bold');
         }
     };
 </script>
