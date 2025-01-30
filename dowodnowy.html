@@ -254,15 +254,18 @@
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
-      <section id="praw">
+<section id="praw">
     <input type="text" id="nameInput" placeholder="Wpisz imię">
-    <p id="nameDisplay"><strong>BRAK</strong></p>
+    <p id="nameDisplay">BRAK</p>
     <p class="sub">Imię (Imiona)</p>
 </section>
 
 <style>
-    #nameDisplay strong {
-        font-weight: bold;
+    #nameDisplay {
+        font-weight: normal; /* Domyślny tekst bez pogrubienia */
+    }
+    .bold {
+        font-weight: bold; /* Wpisane imię pogrubione */
     }
 </style>
 
@@ -272,7 +275,13 @@
 
     input.addEventListener('input', function() {
         const name = this.value.trim();
-        nameDisplay.innerHTML = name ? `<strong>${name}</strong>` : "<strong>BRAK</strong>";
+        if (name) {
+            nameDisplay.textContent = name;
+            nameDisplay.classList.add('bold'); // Dodaje pogrubienie
+        } else {
+            nameDisplay.textContent = "BRAK";
+            nameDisplay.classList.remove('bold'); // Usuwa pogrubienie, gdy puste
+        }
         localStorage.setItem('userName', name);
     });
 
@@ -280,7 +289,8 @@
         const savedName = localStorage.getItem('userName');
         if (savedName) {
             input.value = savedName;
-            nameDisplay.innerHTML = `<strong>${savedName}</strong>`;
+            nameDisplay.textContent = savedName;
+            nameDisplay.classList.add('bold');
         }
     };
 </script>
