@@ -254,9 +254,23 @@
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
-        <section id="praw">
-            <p id="name">BRAK</p>
-            <p class="sub">Imię (Imiona)</p><br>
+       <section id="praw">
+    <input type="text" id="nameInput" placeholder="Wpisz imię">
+    <p class="sub">Imię (Imiona)</p>
+
+<script>
+    document.getElementById('nameInput').addEventListener('input', function() {
+        localStorage.setItem('userName', this.value);
+    });
+
+    window.onload = function() {
+        const savedName = localStorage.getItem('userName');
+        if (savedName) {
+            document.getElementById('nameInput').value = savedName;
+        }
+    };
+</script>
+
             <p id="surname">BRAK </p>
             <p class="sub">Nazwiskо</p><br>
             <p id="nationality">POLSKIE</p>
