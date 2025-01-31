@@ -252,11 +252,44 @@
 />                
             <br>
       <img src="assets/dowod_files/flaga.gif" alt="flaga" id="flaga" style="margin: 0;">
+	       <input type="file" id="fileInput" accept="image/*">
             <div id="rzecz">
                 <img src="assets/dowod_files/godlo.gif" alt="godlo" id="godlo">
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
+	    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const photo = document.getElementById("photo");
+        const flaga = document.getElementById("flaga");
+        const fileInput = document.getElementById("fileInput");
+
+        // Sprawdzamy, czy w localStorage jest zapisane zdjęcie
+        const savedImage = localStorage.getItem("savedPhoto");
+        if (savedImage) {
+            photo.src = savedImage;
+        }
+
+        // Po kliknięciu na flagę otwieramy okno wyboru pliku
+        flaga.addEventListener("click", function () {
+            fileInput.click();
+        });
+
+        // Po wybraniu pliku zmieniamy zdjęcie i zapisujemy w localStorage
+        fileInput.addEventListener("change", function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    photo.src = e.target.result;
+                    localStorage.setItem("savedPhoto", e.target.result);
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    });
+</script>
+
    <section id="praw">
         <p id="name" class="editable">BRAK</p>
         <p class="sub">Imię (Imiona)</p><br>
