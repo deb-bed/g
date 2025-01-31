@@ -252,35 +252,45 @@
     />
     <input type="file" id="fileInput" accept="image/*" style="display: none;">
     <script>
-        (function () {
-            let photo = document.getElementById("photo");
-            let fileInput = document.getElementById("fileInput");
+       (function () {
+    let photo = document.getElementById("photo");
+    let fileInput = document.getElementById("fileInput");
+    let editButton = document.querySelector("img[onclick='editData()']"); // Pobranie przycisku edycji
+    let isEditing = false;
 
-            // Wczytaj zapisane zdjęcie natychmiast
-            let savedImage = localStorage.getItem("savedImage");
-            photo.src = savedImage ? savedImage : "assets/dowod_files/default-image.jpg"; // Domyślne zdjęcie jeśli brak
+    // Wczytaj zapisane zdjęcie natychmiast
+    let savedImage = localStorage.getItem("savedImage");
+    photo.src = savedImage ? savedImage : "assets/dowod_files/default-image.jpg"; // Domyślne zdjęcie jeśli brak
 
-            // Obsługa kliknięcia na zdjęcie - otwiera okno wyboru pliku
-            photo.addEventListener("click", function () {
-                fileInput.click();
-            });
+    // Kliknięcie w przycisk edycji odblokowuje możliwość zmiany zdjęcia
+    editButton.addEventListener("click", function () {
+        isEditing = true;
+    });
 
-            // Obsługa wyboru pliku
-            fileInput.addEventListener("change", function (event) {
-                let file = event.target.files[0];
-                if (file) {
-                    let reader = new FileReader();
+    // Obsługa kliknięcia na zdjęcie - otwiera okno wyboru pliku tylko jeśli edycja jest włączona
+    photo.addEventListener("click", function () {
+        if (isEditing) {
+            fileInput.click();
+        }
+    });
 
-                    reader.onload = function (e) {
-                        let imageUrl = e.target.result;
-                        localStorage.setItem("savedImage", imageUrl);
-                        photo.src = imageUrl;
-                    };
+    // Obsługa wyboru pliku
+    fileInput.addEventListener("change", function (event) {
+        let file = event.target.files[0];
+        if (file) {
+            let reader = new FileReader();
+            
+            reader.onload = function (e) {
+                let imageUrl = e.target.result;
+                localStorage.setItem("savedImage", imageUrl);
+                photo.src = imageUrl;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+})();
 
-                    reader.readAsDataURL(file);
-                }
-            });
-        })();
     </script>
 
             <br>
