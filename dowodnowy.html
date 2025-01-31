@@ -256,28 +256,48 @@
         </section>
 <section id="praw">
     <!-- Imię -->
-    <input type="text" id="name" placeholder="Wpisz imię" value="BRAK">
+    <input type="text" id="name" placeholder="Wpisz imię" value="BRAK" oninput="updateData('name')">
     <p class="sub">Imię (Imiona)</p><br>
     
     <!-- Nazwisko -->
-    <input type="text" id="surname" placeholder="Wpisz nazwisko" value="BRAK">
+    <input type="text" id="surname" placeholder="Wpisz nazwisko" value="BRAK" oninput="updateData('surname')">
     <p class="sub">Nazwisko</p><br>
     
-    <!-- Obywatelstwo -->
+    <!-- Obywatelstwo (stałe) -->
     <p id="nationality">POLSKIE</p>
     <p class="sub">Obywatelstwo</p><br>
     
     <!-- Data urodzenia -->
-    <input type="date" id="birthday">
+    <input type="text" id="birthday" placeholder="Wpisz datę urodzenia" value="" oninput="updateData('birthday')">
     <p class="sub">Data urodzenia</p><br>
     
     <!-- Numer PESEL -->
-    <input type="text" id="pesel" placeholder="Wpisz numer PESEL" value="BRAK">
+    <input type="text" id="pesel" placeholder="Wpisz numer PESEL" value="BRAK" oninput="updateData('pesel')">
     <p class="sub">Numer PESEL</p><br>
-    
-    <!-- Przycisk do zapisania danych -->
-    <button onclick="saveData()">Zapisz dane</button>
 </section>
+
+<script>
+function updateData(field) {
+    const element = document.getElementById(field);
+    const value = element.value;
+
+    // Formatowanie pogrubienia, jeśli wartość została wprowadzona i nie jest "BRAK"
+    if (value && value !== "BRAK") {
+        element.style.fontWeight = "bold";
+    } else {
+        element.style.fontWeight = "normal"; // Przywraca normalne formatowanie, jeśli wartość jest "BRAK"
+    }
+
+    // Jeśli data urodzenia to ciąg tekstowy w formacie "DD.MM.RRRR", ustaw go odpowiednio
+    if (field === 'birthday' && value) {
+        const date = value.split(".");
+        if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
+            // Jeśli data jest w formacie dd.mm.yyyy, zapisz ją
+            element.value = `${date[0]}.${date[1]}.${date[2]}`;
+        }
+    }
+}
+</script>
 
 <script>
 function saveData() {
