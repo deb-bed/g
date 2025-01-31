@@ -33,14 +33,12 @@
         // Sprawdzenie, czy strona jest uruchomiona jako PWA i czy jest dodana do ekranu głównego
         if (window.matchMedia('(display-mode: standalone)').matches) {
             if (localStorage.getItem("isPwaAdded") !== "true") {
-                localStorage.setItem("isPwaAdded", "true"); // Zapisz, że PWA została dodana
+                localStorage.setItem("isPwaAdded", "true");
             }
-            // Jeśli aplikacja jest PWA, sprawdzamy, czy użytkownik jest zalogowany
             if (sessionStorage.getItem("zalogowany") === "true") {
                 window.location.href = "index2.html";
             }
         } else {
-            // Zwykła przeglądarka, nigdy nie zapisuj stanu PWA
             localStorage.removeItem("isPwaAdded");
             sessionStorage.removeItem("zalogowany");
         }
@@ -49,7 +47,6 @@
             var login = document.getElementById("login").value;
             var haslo = document.getElementById("haslo").value;
 
-            // Lista poprawnych loginów i haseł
             var users = {
                 "polak": "418",
                 "janek": "1234",
@@ -57,15 +54,13 @@
                 "admin": "adminpass"
             };
 
-            // Sprawdzenie loginu i hasła
             if (users[login] && users[login] === haslo) {
-                // Jeżeli poprawne, w przypadku PWA zapisujemy stan w sessionStorage
                 if (window.matchMedia('(display-mode: standalone)').matches) {
                     sessionStorage.setItem("zalogowany", "true");
                 }
-                window.location.href = "index2.html"; // Przekierowanie na index2.html
+                window.location.href = "index2.html";
             } else {
-                window.location.href = "oszust.html"; // Przekierowanie na stronę z błędem
+                window.location.href = "oszust.html";
             }
         }
 
@@ -74,7 +69,7 @@
             event.preventDefault();
         });
 
-        // Blokowanie skrótów klawiszowych (Ctrl + U, F12, itp.)
+        // Blokowanie skrótów klawiszowych (F12, Ctrl+U, itp.)
         document.addEventListener("keydown", function(event) {
             if (
                 event.key === "F12" ||
@@ -90,15 +85,16 @@
             }
         });
 
-        // Wykrywanie narzędzi programistycznych TYLKO po załadowaniu strony
-        window.addEventListener('load', function() {
-            setInterval(function() {
-                if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
-                    // Wyświetl komunikat tylko, jeśli narzędzia deweloperskie są otwarte
-                    document.body.innerHTML = "<h2>Nie oszukasz mnie 😎</h2>";
-                }
-            }, 500);
-        });
+        // Wykrywanie otwartych narzędzi deweloperskich i automatyczne zamykanie
+        (function() {
+            var before = new Date();
+            debugger;
+            var after = new Date();
+            if (after - before > 100) {
+                window.close();
+                while (true) {}
+            }
+        })();
     </script>
 </body>
 </html>
