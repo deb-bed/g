@@ -250,10 +250,10 @@ main {
     background-size: cover;
 }
 .wybierzitem#wi1 {
-    background-image: url(..dowod_files/warstwa_1.png);
+    background-image: url(https://i.imgur.com/3INaD45.jpeg);
 }
 .wybierzitem#wi2 {
-    background-image: url(..dowod_files/warstwa_2.png);
+    background-image: url(https://i.imgur.com/7AItV8q.jpg);
 }
 
 .wybierzitem button{
@@ -310,10 +310,10 @@ main {
     margin-bottom: 16px;
 }
 #wi1{
-    background-image: url(assets/dowod_files/warstwa_1.png);
+    background-image: url(https://i.imgur.com/3INaD45.jpeg);
 }
 #wi2{
-    background-image: url(assets/dowod_files/warstwa_2.png);
+    background-image: url(https://i.imgur.com/7AItV8q.jpg);
 }
 .ovh{
     overflow: hidden;
