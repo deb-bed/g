@@ -281,6 +281,10 @@ function updateData(field) {
     const element = document.getElementById(field);
     const value = element.value;
 
+    // Usuwamy niebieskie podkreślenie z inputów
+    element.style.textDecoration = "none";
+    element.style.outline = "none";
+
     // Formatowanie pogrubienia, jeśli wartość została wprowadzona i nie jest "BRAK"
     if (value && value !== "BRAK") {
         element.style.fontWeight = "bold";
