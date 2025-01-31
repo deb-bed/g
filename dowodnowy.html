@@ -198,7 +198,7 @@
     }
 </style>
 
-	  <style>
+	<style>
         /* Stylowanie pól formularza */
         input {
             text-decoration: none;
@@ -226,9 +226,11 @@
 
         /* Responsywność dla tekstu obywatelstwa */
         #nationality {
+            font-weight: normal; /* Ustawiamy normalną grubość dla obywatelstwa */
             white-space: nowrap; /* Zapewnia, że tekst nie będzie łamał się na dwie linie */
             overflow: hidden; /* Ukrywa nadmiarowy tekst, jeśli nie mieści się w dostępnej przestrzeni */
             text-overflow: ellipsis; /* Dodaje "..." jeśli tekst jest zbyt długi */
+            font-size: 1rem; /* Czcionka na urządzeniach desktopowych */
         }
 
         @media (max-width: 600px) {
@@ -249,6 +251,11 @@
             padding: 20px;
             max-width: 600px; /* Maksymalna szerokość formularza */
             font-family: Arial, sans-serif; /* Czcionka formularza */
+        }
+
+        /* Pogrubienie napisów, gdy użytkownik wprowadza dane */
+        .bold {
+            font-weight: bold;
         }
     </style>
 
@@ -319,8 +326,8 @@
         <input type="text" id="surname" placeholder="Wpisz nazwisko" value="BRAK" oninput="updateData('surname')">
         <p class="sub">Nazwisko</p><br>
         
-        <!-- Obywatelstwo (stałe) -->
-        <p id="nationality">POLSKIE</p>
+        <!-- Obywatelstwo (możliwość edycji) -->
+        <input type="text" id="nationality" placeholder="Wpisz obywatelstwo" value="POLSKIE" oninput="updateData('nationality')">
         <p class="sub">Obywatelstwo</p><br>
         
         <!-- Data urodzenia -->
@@ -343,9 +350,9 @@
 
             // Formatowanie pogrubienia, jeśli wartość została wprowadzona i nie jest "BRAK"
             if (value && value !== "BRAK") {
-                element.style.fontWeight = "bold";
+                element.classList.add('bold');  // Dodajemy klasę 'bold' jeśli pole jest wypełnione
             } else {
-                element.style.fontWeight = "normal"; // Przywraca normalne formatowanie, jeśli wartość jest "BRAK"
+                element.classList.remove('bold');  // Usuwamy pogrubienie, jeśli pole ma wartość "BRAK"
             }
 
             // Jeśli data urodzenia to ciąg tekstowy w formacie "DD.MM.RRRR", ustaw go odpowiednio
@@ -358,34 +365,6 @@
             }
         }
     </script>
-<script>
-function saveData() {
-    // Pobranie danych z pól formularza
-    const name = document.getElementById("name").value;
-    const surname = document.getElementById("surname").value;
-    const birthday = document.getElementById("birthday").value;
-    const pesel = document.getElementById("pesel").value;
-
-    // Sprawdzamy, czy pole nie jest puste lub nie zawiera "BRAK", a potem zapisujemy dane z pogrubieniem
-    if (name && name !== "BRAK") {
-        document.getElementById("name").value = name;
-        document.getElementById("name").style.fontWeight = "bold";
-    }
-    if (surname && surname !== "BRAK") {
-        document.getElementById("surname").value = surname;
-        document.getElementById("surname").style.fontWeight = "bold";
-    }
-    if (birthday) {
-        document.getElementById("birthday").value = birthday;
-        document.getElementById("birthday").style.fontWeight = "bold";
-    }
-    if (pesel && pesel !== "BRAK") {
-        document.getElementById("pesel").value = pesel;
-        document.getElementById("pesel").style.fontWeight = "bold";
-    }
-}
-</script>
-
     </main>
   <section id="bottom">
         <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
