@@ -274,7 +274,7 @@
         <p class="sub">Numer PESEL</p><br>
     </section>
     
-   <div id="editModal" class="hidden">
+    <div id="editModal" class="hidden">
         <label>Imię: <input type="text" id="editName" oninput="autoSave()"></label><br>
         <label>Nazwisko: <input type="text" id="editSurname" oninput="autoSave()"></label><br>
         <label>Obywatelstwo: <input type="text" id="editNationality" oninput="autoSave()"></label><br>
@@ -326,7 +326,7 @@
             let day = String(date.getDate()).padStart(2, '0');
             let month = String(date.getMonth() + 1).padStart(2, '0');
             let year = date.getFullYear();
-            return ${day}.${month}.${year};
+            return `${day}.${month}.${year}`;
         }
         
         function closeModal() {
