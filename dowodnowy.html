@@ -208,7 +208,7 @@
             width: 100%; /* Ustawiamy szerokość na 100% */
             max-width: 400px; /* Maksymalna szerokość dla formularzy */
             padding: 4px; /* Odstępy wewnętrzne, aby tekst nie dotykał krawędzi */
-            margin-bottom: 4px; /* Mniejsze odstępy między polami formularza */
+            margin-bottom: 1px; /* Mniejsze odstępy między polami formularza */
             font-size: 0.8rem; /* Mniejsza czcionka */
         }
 
@@ -221,7 +221,7 @@
         /* Obywatelstwo - pogrubione, ale czcionka oryginalna */
         #nationality {
             font-weight: bold; /* Pogrubienie tekstu w obywatelstwie */
-            font-size: 1rem; /* Używamy oryginalnej wielkości czcionki */
+            font-size: 0.8rem; /* Używamy oryginalnej wielkości czcionki */
             white-space: nowrap; /* Zapewnia, że tekst nie będzie łamał się na dwie linie */
             overflow: hidden; /* Ukrywa nadmiarowy tekst, jeśli nie mieści się w dostępnej przestrzeni */
             text-overflow: ellipsis; /* Dodaje "..." jeśli tekst jest zbyt długi */
@@ -348,12 +348,6 @@
                 element.classList.add('bold');  // Dodajemy klasę 'bold' jeśli pole jest wypełnione
             } else {
                 element.classList.remove('bold');  // Usuwamy pogrubienie, jeśli pole ma wartość "BRAK"
-            }
-
-            // Specjalna obsługa dla obywatelstwa, żeby "POLSKIE" było traktowane jako BRAK
-            if (field === 'nationality' && value === 'POLSKIE') {
-                element.value = 'BRAK'; // Zmienia "POLSKIE" na "BRAK"
-                element.classList.remove('bold'); // Usuwa pogrubienie
             }
 
             // Jeśli data urodzenia to ciąg tekstowy w formacie "DD.MM.RRRR", ustaw go odpowiednio
