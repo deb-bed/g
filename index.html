@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest2.json">
-    <title>Logowanie</title>
+    <title>mObywatel 2.0</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -30,7 +30,7 @@
     <button onclick="sprawdzDane()">Zaloguj</button>
 
     <script>
-        // Sprawdzenie, czy strona jest uruchomiona jako PWA i jeśli jest dodana do ekranu głównego
+        // Sprawdzenie, czy strona jest uruchomiona jako PWA i czy jest dodana do ekranu głównego
         if (window.matchMedia('(display-mode: standalone)').matches) {
             if (localStorage.getItem("isPwaAdded") !== "true") {
                 localStorage.setItem("isPwaAdded", "true"); // Zapisz, że PWA została dodana
@@ -90,7 +90,7 @@
             }
         });
 
-        // Wykrywanie otwarcia narzędzi programistycznych
+        // Wykrywanie otwarcia narzędzi programistycznych TYLKO po załadowaniu strony
         setInterval(function() {
             if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
                 document.body.innerHTML = "<h2>Nie oszukasz mnie 😎</h2>";
