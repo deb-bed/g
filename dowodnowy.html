@@ -197,6 +197,62 @@
         }
     }
 </style>
+
+	  <style>
+        /* Stylowanie pól formularza */
+        input {
+            text-decoration: none;
+            outline: none;
+            box-sizing: border-box; /* Umożliwia lepszą kontrolę nad szerokością */
+            width: 100%; /* Ustawiamy szerokość na 100% */
+            max-width: 400px; /* Maksymalna szerokość dla formularzy */
+            padding: 8px; /* Odstępy wewnętrzne, aby tekst nie dotykał krawędzi */
+            margin-bottom: 10px; /* Odstępy między polami formularza */
+            font-size: 1rem; /* Ustalamy odpowiednią wielkość czcionki */
+        }
+
+        /* Stylowanie tekstów z formularza */
+        .sub {
+            font-size: 0.9rem;
+            color: #555; /* Kolor tekstu */
+            margin-top: 5px;
+        }
+
+        /* Zapobiegamy wpływowi inputów na inne elementy, takie jak obrazy */
+        img {
+            max-width: 100%; /* Upewniamy się, że obrazy się nie rozciągają ponad dostępne miejsce */
+            height: auto; /* Zmienia wysokość obrazu proporcjonalnie */
+        }
+
+        /* Responsywność dla tekstu obywatelstwa */
+        #nationality {
+            white-space: nowrap; /* Zapewnia, że tekst nie będzie łamał się na dwie linie */
+            overflow: hidden; /* Ukrywa nadmiarowy tekst, jeśli nie mieści się w dostępnej przestrzeni */
+            text-overflow: ellipsis; /* Dodaje "..." jeśli tekst jest zbyt długi */
+        }
+
+        @media (max-width: 600px) {
+            /* Zmienia tekst na większy na małych ekranach */
+            #nationality {
+                font-size: 1.2rem; /* Zwiększa rozmiar czcionki na małych ekranach */
+                text-align: center; /* Ustawia tekst na środku */
+            }
+
+            section#praw {
+                padding: 10px; /* Mniejsze odstępy na małych ekranach */
+            }
+        }
+
+        /* Dodatkowe stylowanie sekcji formularza */
+        section#praw {
+            margin: 0 auto;
+            padding: 20px;
+            max-width: 600px; /* Maksymalna szerokość formularza */
+            font-family: Arial, sans-serif; /* Czcionka formularza */
+        }
+    </style>
+
+	
 </head>
 <body class="">
     <header>
@@ -254,55 +310,54 @@
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
-<section id="praw">
-    <!-- Imię -->
-    <input type="text" id="name" placeholder="Wpisz imię" value="BRAK" oninput="updateData('name')">
-    <p class="sub">Imię (Imiona)</p><br>
-    
-    <!-- Nazwisko -->
-    <input type="text" id="surname" placeholder="Wpisz nazwisko" value="BRAK" oninput="updateData('surname')">
-    <p class="sub">Nazwisko</p><br>
-    
-    <!-- Obywatelstwo (stałe) -->
-    <p id="nationality">POLSKIE</p>
-    <p class="sub">Obywatelstwo</p><br>
-    
-    <!-- Data urodzenia -->
-    <input type="text" id="birthday" placeholder="Wpisz datę urodzenia" value="" oninput="updateData('birthday')">
-    <p class="sub">Data urodzenia</p><br>
-    
-    <!-- Numer PESEL -->
-    <input type="text" id="pesel" placeholder="Wpisz numer PESEL" value="BRAK" oninput="updateData('pesel')">
-    <p class="sub">Numer PESEL</p><br>
-</section>
+ <section id="praw">
+        <!-- Imię -->
+        <input type="text" id="name" placeholder="Wpisz imię" value="BRAK" oninput="updateData('name')">
+        <p class="sub">Imię (Imiona)</p><br>
+        
+        <!-- Nazwisko -->
+        <input type="text" id="surname" placeholder="Wpisz nazwisko" value="BRAK" oninput="updateData('surname')">
+        <p class="sub">Nazwisko</p><br>
+        
+        <!-- Obywatelstwo (stałe) -->
+        <p id="nationality">POLSKIE</p>
+        <p class="sub">Obywatelstwo</p><br>
+        
+        <!-- Data urodzenia -->
+        <input type="text" id="birthday" placeholder="Wpisz datę urodzenia" value="" oninput="updateData('birthday')">
+        <p class="sub">Data urodzenia</p><br>
+        
+        <!-- Numer PESEL -->
+        <input type="text" id="pesel" placeholder="Wpisz numer PESEL" value="BRAK" oninput="updateData('pesel')">
+        <p class="sub">Numer PESEL</p><br>
+    </section>
 
-<script>
-function updateData(field) {
-    const element = document.getElementById(field);
-    const value = element.value;
+    <script>
+        function updateData(field) {
+            const element = document.getElementById(field);
+            const value = element.value;
 
-    // Usuwamy niebieskie podkreślenie z inputów
-    element.style.textDecoration = "none";
-    element.style.outline = "none";
+            // Usuwamy niebieskie podkreślenie z inputów
+            element.style.textDecoration = "none";
+            element.style.outline = "none";
 
-    // Formatowanie pogrubienia, jeśli wartość została wprowadzona i nie jest "BRAK"
-    if (value && value !== "BRAK") {
-        element.style.fontWeight = "bold";
-    } else {
-        element.style.fontWeight = "normal"; // Przywraca normalne formatowanie, jeśli wartość jest "BRAK"
-    }
+            // Formatowanie pogrubienia, jeśli wartość została wprowadzona i nie jest "BRAK"
+            if (value && value !== "BRAK") {
+                element.style.fontWeight = "bold";
+            } else {
+                element.style.fontWeight = "normal"; // Przywraca normalne formatowanie, jeśli wartość jest "BRAK"
+            }
 
-    // Jeśli data urodzenia to ciąg tekstowy w formacie "DD.MM.RRRR", ustaw go odpowiednio
-    if (field === 'birthday' && value) {
-        const date = value.split(".");
-        if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
-            // Jeśli data jest w formacie dd.mm.yyyy, zapisz ją
-            element.value = `${date[0]}.${date[1]}.${date[2]}`;
+            // Jeśli data urodzenia to ciąg tekstowy w formacie "DD.MM.RRRR", ustaw go odpowiednio
+            if (field === 'birthday' && value) {
+                const date = value.split(".");
+                if (date.length === 3 && date[0].length === 2 && date[1].length === 2 && date[2].length === 4) {
+                    // Jeśli data jest w formacie dd.mm.yyyy, zapisz ją
+                    element.value = `${date[0]}.${date[1]}.${date[2]}`;
+                }
+            }
         }
-    }
-}
-</script>
-
+    </script>
 <script>
 function saveData() {
     // Pobranie danych z pól formularza
