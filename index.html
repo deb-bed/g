@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest2.json">
-    <title>mObywatel 2.0</title>
+    <title>Logowanie</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -90,12 +90,15 @@
             }
         });
 
-        // Wykrywanie otwarcia narzędzi programistycznych TYLKO po załadowaniu strony
-        setInterval(function() {
-            if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
-                document.body.innerHTML = "<h2>Nie oszukasz mnie 😎</h2>";
-            }
-        }, 500);
+        // Wykrywanie narzędzi programistycznych TYLKO po załadowaniu strony
+        window.addEventListener('load', function() {
+            setInterval(function() {
+                if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
+                    // Wyświetl komunikat tylko, jeśli narzędzia deweloperskie są otwarte
+                    document.body.innerHTML = "<h2>Nie oszukasz mnie 😎</h2>";
+                }
+            }, 500);
+        });
     </script>
 </body>
 </html>
