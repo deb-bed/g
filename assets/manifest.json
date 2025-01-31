@@ -1,38 +1,26 @@
 {
-    "name": "mObywatel",
-    "short_name": "mObywatel",
-    "start_url": "/",
-    "display": "standalone",
-    "background_color": "#fff",
-    "description": "Aplikacja demonstracyjna",
-    "icons": [{
-      "src": "assets/icons/logo48.png",
-      "sizes": "48x48",
-      "type": "image/png"
-    }, {
-      "src": "assets/icons/icon-72x72.png",
-      "sizes": "72x72",
-      "type": "image/png"
-    }, {
-      "src": "assets/icons/icon-96x96.png",
-      "sizes": "96x96",
-      "type": "image/png"
-    }, {
-      "src": "assets/icons/icon-144x144.png",
+  "name": "Moja PWA",
+  "short_name": "PWA",
+  "start_url": "/g/index.html",
+  "scope": "/g/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "/g/assets/icons/icon-144x144.png",
       "sizes": "144x144",
       "type": "image/png"
-    }, {
-      "src": "assets/icons/logo168.png",
-      "sizes": "168x168",
-      "type": "image/png"
-    }, {
-      "src": "assets/icons/icon-192x192.png",
+    },
+    {
+      "src": "/g/assets/icons/icon-192x192.png",
       "sizes": "192x192",
       "type": "image/png"
-    }, {
-      "src": "assets/icons/icon-512x512.png",
+    },
+    {
+      "src": "/g/assets/icons/icon-512x512.png",
       "sizes": "512x512",
       "type": "image/png"
-    }]
-  }
-  
+    }
+  ]
+}
