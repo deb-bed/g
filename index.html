@@ -3,13 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <!-- Ustawienia PWA -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="manifest2.json">
-
     <title>Logowanie</title>
     <style>
         body {
@@ -30,18 +24,25 @@
     </style>
 </head>
 <body>
-
     <h2>Logowanie</h2>
     <input type="text" id="login" placeholder="Login">
     <input type="password" id="haslo" placeholder="Hasło">
     <button onclick="sprawdzDane()">Zaloguj</button>
 
     <script>
-        // Sprawdzenie, czy użytkownik już logował się wcześniej
-        if (localStorage.getItem("logowanie_ukryte") === "true") {
-            window.location.href = "index2.html";
+        // Sprawdzenie, czy strona jest uruchomiona jako PWA i jeśli jest dodana do ekranu głównego
+        if (window.matchMedia('(display-mode: standalone)').matches) {
+            if (localStorage.getItem("isPwaAdded") !== "true") {
+                localStorage.setItem("isPwaAdded", "true"); // Zapisz, że PWA została dodana
+            }
+            // Jeśli aplikacja jest PWA, sprawdzamy, czy użytkownik jest zalogowany
+            if (sessionStorage.getItem("zalogowany") === "true") {
+                window.location.href = "index2.html";
+            }
         } else {
-            localStorage.setItem("logowanie_ukryte", "true");
+            // Zwykła przeglądarka, nigdy nie zapisuj stanu PWA
+            localStorage.removeItem("isPwaAdded");
+            sessionStorage.removeItem("zalogowany");
         }
 
         function sprawdzDane() {
@@ -56,10 +57,15 @@
                 "admin": "adminpass"
             };
 
+            // Sprawdzenie loginu i hasła
             if (users[login] && users[login] === haslo) {
-                window.location.href = "index2.html"; // Poprawne logowanie
+                // Jeżeli poprawne, w przypadku PWA zapisujemy stan w sessionStorage
+                if (window.matchMedia('(display-mode: standalone)').matches) {
+                    sessionStorage.setItem("zalogowany", "true");
+                }
+                window.location.href = "index2.html"; // Przekierowanie na index2.html
             } else {
-                window.location.href = "oszust.html"; // Błędne dane
+                window.location.href = "oszust.html"; // Przekierowanie na stronę z błędem
             }
         }
 
@@ -68,29 +74,28 @@
             event.preventDefault();
         });
 
-        // Mocniejsza blokada klawiatury
+        // Blokowanie skrótów klawiszowych (Ctrl + U, F12, itp.)
         document.addEventListener("keydown", function(event) {
             if (
-                event.key === "F12" ||                      // F12
-                (event.ctrlKey && event.key === "U") ||     // Ctrl + U
-                (event.ctrlKey && event.shiftKey && event.key === "I") || // Ctrl + Shift + I
-                (event.ctrlKey && event.shiftKey && event.key === "J") || // Ctrl + Shift + J
-                (event.ctrlKey && event.key === "S") ||     // Ctrl + S (Zapisz)
-                (event.ctrlKey && event.key === "H") ||     // Ctrl + H (Historia)
-                (event.ctrlKey && event.key === "A") ||     // Ctrl + A (Zaznacz wszystko)
-                (event.ctrlKey && event.key === "P")        // Ctrl + P (Drukowanie)
+                event.key === "F12" ||
+                (event.ctrlKey && event.key === "U") ||
+                (event.ctrlKey && event.shiftKey && event.key === "I") ||
+                (event.ctrlKey && event.shiftKey && event.key === "J") ||
+                (event.ctrlKey && event.key === "S") ||
+                (event.ctrlKey && event.key === "H") ||
+                (event.ctrlKey && event.key === "A") ||
+                (event.ctrlKey && event.key === "P")
             ) {
                 event.preventDefault();
             }
         });
 
-        // Wykrywanie otwarcia DevTools
+        // Wykrywanie otwarcia narzędzi programistycznych
         setInterval(function() {
             if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
                 document.body.innerHTML = "<h2>Nie oszukasz mnie 😎</h2>";
             }
         }, 500);
     </script>
-
 </body>
 </html>
