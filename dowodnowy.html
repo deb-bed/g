@@ -200,7 +200,7 @@
 </head>
 <body class="">
     <header>
-        <a href="dashboard2.html">
+        <a href="dashboard.html">
             <img src="assets/dowod_files/pozdro.svg" alt="leftarrow">
         </a>
         <span style="font-family: 'Inter'; font-weight: 900; position: relative; left: -6%;">mDowód</span>
@@ -255,46 +255,58 @@
             </div>
         </section>
 <section id="praw">
-    <input type="text" id="nameInput" placeholder="Wpisz imię">
-    <p class="sub">Imię (Imiona)</p>
+    <!-- Imię -->
+    <input type="text" id="name" placeholder="Wpisz imię" value="BRAK">
+    <p class="sub">Imię (Imiona)</p><br>
+    
+    <!-- Nazwisko -->
+    <input type="text" id="surname" placeholder="Wpisz nazwisko" value="BRAK">
+    <p class="sub">Nazwisko</p><br>
+    
+    <!-- Obywatelstwo -->
+    <p id="nationality">POLSKIE</p>
+    <p class="sub">Obywatelstwo</p><br>
+    
+    <!-- Data urodzenia -->
+    <input type="date" id="birthday">
+    <p class="sub">Data urodzenia</p><br>
+    
+    <!-- Numer PESEL -->
+    <input type="text" id="pesel" placeholder="Wpisz numer PESEL" value="BRAK">
+    <p class="sub">Numer PESEL</p><br>
+    
+    <!-- Przycisk do zapisania danych -->
+    <button onclick="saveData()">Zapisz dane</button>
 </section>
 
-<style>
-    #nameInput {
-        font-weight: bold; /* Pogrubienie wpisanego tekstu */
-        border: none;
-        outline: none;
-        font-size: inherit;
-        text-align: center;
-        width: 100%;
-        background: none;
-    }
-</style>
-
 <script>
-    const input = document.getElementById('nameInput');
+function saveData() {
+    // Pobranie danych z pól formularza
+    const name = document.getElementById("name").value;
+    const surname = document.getElementById("surname").value;
+    const birthday = document.getElementById("birthday").value;
+    const pesel = document.getElementById("pesel").value;
 
-    input.addEventListener('input', function() {
-        localStorage.setItem('userName', this.value.trim());
-    });
-
-    window.onload = function() {
-        const savedName = localStorage.getItem('userName');
-        if (savedName) {
-            input.value = savedName;
-        }
-    };
+    // Sprawdzamy, czy pole nie jest puste lub nie zawiera "BRAK", a potem zapisujemy dane z pogrubieniem
+    if (name && name !== "BRAK") {
+        document.getElementById("name").value = name;
+        document.getElementById("name").style.fontWeight = "bold";
+    }
+    if (surname && surname !== "BRAK") {
+        document.getElementById("surname").value = surname;
+        document.getElementById("surname").style.fontWeight = "bold";
+    }
+    if (birthday) {
+        document.getElementById("birthday").value = birthday;
+        document.getElementById("birthday").style.fontWeight = "bold";
+    }
+    if (pesel && pesel !== "BRAK") {
+        document.getElementById("pesel").value = pesel;
+        document.getElementById("pesel").style.fontWeight = "bold";
+    }
+}
 </script>
 
-            <p id="surname">BRAK </p>
-            <p class="sub">Nazwiskо</p><br>
-            <p id="nationality">POLSKIE</p>
-            <p class="sub">Obywatelstwo</p><br>
-            <p id="birthday"></p>
-            <p class="sub">Data urodzenia</p><br>
-            <p id="pesel">BRAK</p>
-            <p class="sub">Numer PЕSEL</p><br>
-        </section>
     </main>
   <section id="bottom">
         <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
