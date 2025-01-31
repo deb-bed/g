@@ -4,12 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Dla iOS (Safari) -->
+    <!-- Ustawienia PWA -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Logowanie">
-
-    <!-- Dla Androida (Chrome) -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="manifest2.json">
 
@@ -40,9 +37,9 @@
     <button onclick="sprawdzDane()">Zaloguj</button>
 
     <script>
-        // Jeśli użytkownik już widział stronę, przekierowujemy go gdzieś, np. na stronę główną
+        // Sprawdzenie, czy użytkownik już logował się wcześniej
         if (localStorage.getItem("logowanie_ukryte") === "true") {
-            window.location.href = "index2.html"; // Możesz zmienić na inną stronę
+            window.location.href = "index2.html";
         } else {
             localStorage.setItem("logowanie_ukryte", "true");
         }
@@ -51,7 +48,7 @@
             var login = document.getElementById("login").value;
             var haslo = document.getElementById("haslo").value;
 
-            // Lista dozwolonych loginów i haseł
+            // Lista poprawnych loginów i haseł
             var users = {
                 "polak": "418",
                 "janek": "1234",
@@ -60,27 +57,34 @@
             };
 
             if (users[login] && users[login] === haslo) {
-                window.location.href = "index2.html";
+                window.location.href = "index2.html"; // Poprawne logowanie
             } else {
-                window.location.href = "oszust.html";
+                window.location.href = "oszust.html"; // Błędne dane
             }
         }
 
-        // ZABLOKOWANIE PRAWOKLIKU
+        // Blokowanie prawokliku
         document.addEventListener("contextmenu", function(event) {
             event.preventDefault();
         });
 
-        // ZABLOKOWANIE KONSOLI (F12, Ctrl+Shift+I, Ctrl+U)
+        // Mocniejsza blokada klawiatury
         document.addEventListener("keydown", function(event) {
-            if (event.key === "F12" || 
-                (event.ctrlKey && event.shiftKey && event.key === "I") || 
-                (event.ctrlKey && event.key === "U")) {
+            if (
+                event.key === "F12" ||                      // F12
+                (event.ctrlKey && event.key === "U") ||     // Ctrl + U
+                (event.ctrlKey && event.shiftKey && event.key === "I") || // Ctrl + Shift + I
+                (event.ctrlKey && event.shiftKey && event.key === "J") || // Ctrl + Shift + J
+                (event.ctrlKey && event.key === "S") ||     // Ctrl + S (Zapisz)
+                (event.ctrlKey && event.key === "H") ||     // Ctrl + H (Historia)
+                (event.ctrlKey && event.key === "A") ||     // Ctrl + A (Zaznacz wszystko)
+                (event.ctrlKey && event.key === "P")        // Ctrl + P (Drukowanie)
+            ) {
                 event.preventDefault();
             }
         });
 
-        // WYKRYWANIE OTWARCIA DEVTOOLS
+        // Wykrywanie otwarcia DevTools
         setInterval(function() {
             if (window.outerHeight - window.innerHeight > 200 || window.outerWidth - window.innerWidth > 200) {
                 document.body.innerHTML = "<h2>Nie oszukasz mnie 😎</h2>";
