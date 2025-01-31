@@ -317,105 +317,65 @@
         <p class="sub">Numer PESEL</p><br>
     </section>
     
-    <div id="editModal" class="hidden">
-    <label>Imię: <input type="text" id="editName" oninput="autoSave()"></label><br>
-    <label>Nazwisko: <input type="text" id="editSurname" oninput="autoSave()"></label><br>
-    <label>Obywatelstwo: <input type="text" id="editNationality" oninput="autoSave()"></label><br>
-    <label>Data urodzenia: <input type="date" id="editBirthday" oninput="autoSave()"></label><br>
-    <label>PESEL: <input type="text" id="editPesel" oninput="autoSave()"></label><br>
+   <div id="editModal" class="hidden">
+        <label>Imię: <input type="text" id="editName" oninput="autoSave()"></label><br>
+        <label>Nazwisko: <input type="text" id="editSurname" oninput="autoSave()"></label><br>
+        <label>Obywatelstwo: <input type="text" id="editNationality" oninput="autoSave()"></label><br>
+        <label>Data urodzenia: <input type="date" id="editBirthday" oninput="autoSave()"></label><br>
+        <label>PESEL: <input type="text" id="editPesel" oninput="autoSave()"></label><br>
+        <button onclick="closeModal()">Zamknij</button>
+    </div>
     
-    <label>Zdjęcie:</label><br>
-    <img id="editPhotoPreview" src="#" class="object-contain w-full rounded-lg" 
-         style="max-width: 100px; display: block;"><br>
-    <input type="file" id="fileInput" accept="image/*"><br>
-
-    <button onclick="closeModal()">Zamknij</button>
-</div>
-
-<script>
-document.addEventListener("DOMContentLoaded", loadData);
-
-function loadData() {
-    let fields = ["name", "surname", "nationality", "birthday", "pesel"];
-    
-    fields.forEach(id => {
-        let value = localStorage.getItem(id) || "BRAK";
-        if (id === "birthday" && value !== "BRAK" && value !== "") {
-            value = formatDate(value);
-        }
-        document.getElementById(id).textContent = value;
-        if (value !== "BRAK") document.getElementById(id).classList.add("editable");
-    });
-
-    // Wczytanie zdjęcia do obu miejsc
-    let savedImage = localStorage.getItem("savedImage");
-    if (savedImage) {
-        document.getElementById("photo").src = savedImage;
-        document.getElementById("editPhotoPreview").src = savedImage;
-    }
-}
-
-function editData() {
-    document.getElementById("editName").value = localStorage.getItem("name") || "";
-    document.getElementById("editSurname").value = localStorage.getItem("surname") || "";
-    document.getElementById("editNationality").value = localStorage.getItem("nationality") || "";
-    document.getElementById("editBirthday").value = localStorage.getItem("birthday") || "";
-    document.getElementById("editPesel").value = localStorage.getItem("pesel") || "";
-
-    // Załadowanie zapisanego zdjęcia do podglądu w edycji
-    let savedImage = localStorage.getItem("savedImage");
-    document.getElementById("editPhotoPreview").src = savedImage || "#";
-
-    document.getElementById("editModal").classList.remove("hidden");
-}
-
-// Obsługa zapisu zdjęcia
-document.getElementById("fileInput").addEventListener("change", function(event) {
-    let file = event.target.files[0];
-
-    if (file) {
-        let reader = new FileReader();
+    <script>
+        document.addEventListener("DOMContentLoaded", loadData);
         
-        reader.onload = function(e) {
-            let imageUrl = e.target.result;
-            localStorage.setItem("savedImage", imageUrl);
-            
-            // Ustawienie zdjęcia w dwóch miejscach
-            document.getElementById("editPhotoPreview").src = imageUrl;
-            document.getElementById("photo").src = imageUrl;
-        };
-
-        reader.readAsDataURL(file);
-    }
-});
-
-function autoSave() {
-    let fields = ["name", "surname", "nationality", "birthday", "pesel"];
-    fields.forEach(id => {
-        let value = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1)).value;
-        if (id === "birthday" && value) {
-            localStorage.setItem(id, value);
-            value = formatDate(value);
-        } else {
-            localStorage.setItem(id, value || "BRAK");
+        function loadData() {
+            ["name", "surname", "nationality", "birthday", "pesel"].forEach(id => {
+                let value = localStorage.getItem(id) || "BRAK";
+                if (id === "birthday" && value !== "BRAK" && value !== "") {
+                    value = formatDate(value);
+                }
+                document.getElementById(id).textContent = value;
+                if (value !== "BRAK") document.getElementById(id).classList.add("editable");
+            });
         }
-        document.getElementById(id).textContent = value || "BRAK";
-        if (value) document.getElementById(id).classList.add("editable");
-    });
-}
 
-function formatDate(dateStr) {
-    let date = new Date(dateStr);
-    let day = String(date.getDate()).padStart(2, '0');
-    let month = String(date.getMonth() + 1).padStart(2, '0');
-    let year = date.getFullYear();
-    return `${day}.${month}.${year}`;
-}
-
-function closeModal() {
-    document.getElementById("editModal").classList.add("hidden");
-}
-</script>
+        function editData() {
+            document.getElementById("editName").value = localStorage.getItem("name") || "";
+            document.getElementById("editSurname").value = localStorage.getItem("surname") || "";
+            document.getElementById("editNationality").value = localStorage.getItem("nationality") || "";
+            document.getElementById("editBirthday").value = localStorage.getItem("birthday") || "";
+            document.getElementById("editPesel").value = localStorage.getItem("pesel") || "";
+            document.getElementById("editModal").classList.remove("hidden");
+        }
+        
+        function autoSave() {
+            let fields = ["name", "surname", "nationality", "birthday", "pesel"];
+            fields.forEach(id => {
+                let value = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1)).value;
+                if (id === "birthday" && value) {
+                    localStorage.setItem(id, value);
+                    value = formatDate(value);
+                } else {
+                    localStorage.setItem(id, value || "BRAK");
+                }
+                document.getElementById(id).textContent = value || "BRAK";
+                if (value) document.getElementById(id).classList.add("editable");
+            });
+        }
+        
+        function formatDate(dateStr) {
+            let date = new Date(dateStr);
+            let day = String(date.getDate()).padStart(2, '0');
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let year = date.getFullYear();
+            return ${day}.${month}.${year};
+        }
+        
+        function closeModal() {
+            document.getElementById("editModal").classList.add("hidden");
+        }
+    </script>
     </main>
   <section id="bottom">
         <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
