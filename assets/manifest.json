@@ -1,7 +1,7 @@
 {
   "name": "mObywatel",
   "short_name": "mObywatel",
-  "start_url": "/g/index.html",
+  "start_url": "/g/index2.html",
   "scope": "/g/",
   "display": "standalone",
   "background_color": "#ffffff",
