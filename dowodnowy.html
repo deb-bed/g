@@ -188,7 +188,8 @@
         .BottomNav_bnTab__WzkWH {
             -webkit-tap-highlight-color: transparent;
         }
-    </style><link rel="stylesheet" href="assets/css/dowodnowy.css">
+    </style>
+	<link rel="stylesheet" href="assets/css/dowodnowy.css">
 <script src="assets/mObywatel/jquery-3.6.0.min.js"></script>
 <style>
     @media screen and (orientation: portrait) {
@@ -206,16 +207,9 @@
             box-sizing: border-box; /* Umożliwia lepszą kontrolę nad szerokością */
             width: 100%; /* Ustawiamy szerokość na 100% */
             max-width: 400px; /* Maksymalna szerokość dla formularzy */
-            padding: 8px; /* Odstępy wewnętrzne, aby tekst nie dotykał krawędzi */
-            margin-bottom: 10px; /* Odstępy między polami formularza */
-            font-size: 1rem; /* Ustalamy odpowiednią wielkość czcionki */
-        }
-
-        /* Stylowanie tekstów z formularza */
-        .sub {
-            font-size: 0.9rem;
-            color: #555; /* Kolor tekstu */
-            margin-top: 5px;
+            padding: 4px; /* Odstępy wewnętrzne, aby tekst nie dotykał krawędzi */
+            margin-bottom: 4px; /* Mniejsze odstępy między polami formularza */
+            font-size: 0.8rem; /* Mniejsza czcionka */
         }
 
         /* Zapobiegamy wpływowi inputów na inne elementy, takie jak obrazy */
@@ -224,22 +218,17 @@
             height: auto; /* Zmienia wysokość obrazu proporcjonalnie */
         }
 
-        /* Responsywność dla tekstu obywatelstwa */
+        /* Obywatelstwo - pogrubione, ale czcionka oryginalna */
         #nationality {
-            font-weight: normal; /* Ustawiamy normalną grubość dla obywatelstwa */
+            font-weight: bold; /* Pogrubienie tekstu w obywatelstwie */
+            font-size: 1rem; /* Używamy oryginalnej wielkości czcionki */
             white-space: nowrap; /* Zapewnia, że tekst nie będzie łamał się na dwie linie */
             overflow: hidden; /* Ukrywa nadmiarowy tekst, jeśli nie mieści się w dostępnej przestrzeni */
             text-overflow: ellipsis; /* Dodaje "..." jeśli tekst jest zbyt długi */
-            font-size: 1rem; /* Czcionka na urządzeniach desktopowych */
         }
 
         @media (max-width: 600px) {
-            /* Zmienia tekst na większy na małych ekranach */
-            #nationality {
-                font-size: 1.2rem; /* Zwiększa rozmiar czcionki na małych ekranach */
-                text-align: center; /* Ustawia tekst na środku */
-            }
-
+            /* Zmniejszmy niektóre odstępy na małych ekranach */
             section#praw {
                 padding: 10px; /* Mniejsze odstępy na małych ekranach */
             }
@@ -248,7 +237,7 @@
         /* Dodatkowe stylowanie sekcji formularza */
         section#praw {
             margin: 0 auto;
-            padding: 20px;
+            padding: 10px; /* Mniejsze odstępy wokół formularza */
             max-width: 600px; /* Maksymalna szerokość formularza */
             font-family: Arial, sans-serif; /* Czcionka formularza */
         }
@@ -257,8 +246,14 @@
         .bold {
             font-weight: bold;
         }
-    </style>
 
+        /* Stylowanie tekstów z formularza - PAMIĘTAJ, że .sub ma zostać nienaruszone */
+        .sub {
+            font-size: 1rem; /* Oryginalny rozmiar czcionki */
+            color: #555; /* Kolor tekstu */
+            margin-top: 5px;
+        }
+    </style>
 	
 </head>
 <body class="">
@@ -317,7 +312,7 @@
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
- <section id="praw">
+  <section id="praw">
         <!-- Imię -->
         <input type="text" id="name" placeholder="Wpisz imię" value="BRAK" oninput="updateData('name')">
         <p class="sub">Imię (Imiona)</p><br>
@@ -327,7 +322,7 @@
         <p class="sub">Nazwisko</p><br>
         
         <!-- Obywatelstwo (możliwość edycji) -->
-        <input type="text" id="nationality" placeholder="Wpisz obywatelstwo" value="POLSKIE" oninput="updateData('nationality')">
+        <input type="text" id="nationality" placeholder="Wpisz obywatelstwo" value="BRAK" oninput="updateData('nationality')">
         <p class="sub">Obywatelstwo</p><br>
         
         <!-- Data urodzenia -->
@@ -348,11 +343,17 @@
             element.style.textDecoration = "none";
             element.style.outline = "none";
 
-            // Formatowanie pogrubienia, jeśli wartość została wprowadzona i nie jest "BRAK"
+            // Pogrubienie dla pól, które mają wartość inną niż "BRAK"
             if (value && value !== "BRAK") {
                 element.classList.add('bold');  // Dodajemy klasę 'bold' jeśli pole jest wypełnione
             } else {
                 element.classList.remove('bold');  // Usuwamy pogrubienie, jeśli pole ma wartość "BRAK"
+            }
+
+            // Specjalna obsługa dla obywatelstwa, żeby "POLSKIE" było traktowane jako BRAK
+            if (field === 'nationality' && value === 'POLSKIE') {
+                element.value = 'BRAK'; // Zmienia "POLSKIE" na "BRAK"
+                element.classList.remove('bold'); // Usuwa pogrubienie
             }
 
             // Jeśli data urodzenia to ciąg tekstowy w formacie "DD.MM.RRRR", ustaw go odpowiednio
