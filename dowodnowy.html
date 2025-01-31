@@ -258,7 +258,7 @@
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
-  <section id="praw">
+   <section id="praw">
         <p id="name" class="editable">BRAK</p>
         <p class="sub">Imię (Imiona)</p><br>
         
@@ -290,6 +290,9 @@
         function loadData() {
             ["name", "surname", "nationality", "birthday", "pesel"].forEach(id => {
                 let value = localStorage.getItem(id) || "BRAK";
+                if (id === "birthday" && value !== "BRAK" && value !== "") {
+                    value = formatDate(value);
+                }
                 document.getElementById(id).textContent = value;
                 if (value !== "BRAK") document.getElementById(id).classList.add("editable");
             });
@@ -308,10 +311,23 @@
             let fields = ["name", "surname", "nationality", "birthday", "pesel"];
             fields.forEach(id => {
                 let value = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1)).value;
-                localStorage.setItem(id, value || "BRAK");
+                if (id === "birthday" && value) {
+                    localStorage.setItem(id, value);
+                    value = formatDate(value);
+                } else {
+                    localStorage.setItem(id, value || "BRAK");
+                }
                 document.getElementById(id).textContent = value || "BRAK";
                 if (value) document.getElementById(id).classList.add("editable");
             });
+        }
+        
+        function formatDate(dateStr) {
+            let date = new Date(dateStr);
+            let day = String(date.getDate()).padStart(2, '0');
+            let month = String(date.getMonth() + 1).padStart(2, '0');
+            let year = date.getFullYear();
+            return `${day}.${month}.${year}`;
         }
         
         function closeModal() {
