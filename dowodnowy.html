@@ -258,8 +258,7 @@
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
         </section>
-	    
-   <section id="praw">
+	    <section id="praw">
         <p id="name" class="editable">BRAK</p>
         <p class="sub">Imię (Imiona)</p><br>
         
@@ -275,89 +274,76 @@
         <p id="pesel" class="editable">BRAK</p>
         <p class="sub">Numer PESEL</p><br>
     </section>
+    
     <div id="editModal" class="hidden">
-    <label>Imię: <input type="text" id="editName" oninput="autoSave()"></label><br>
-    <label>Nazwisko: <input type="text" id="editSurname" oninput="autoSave()"></label><br>
-    <label>Obywatelstwo: <input type="text" id="editNationality" oninput="autoSave()"></label><br>
-    <label>Data urodzenia: <input type="date" id="editBirthday" oninput="autoSave()"></label><br>
-    <label>PESEL: <input type="text" id="editPesel" oninput="autoSave()"></label><br>
-    <label>Nazwisko rodowe: <input type="text" id="editFamilyName" oninput="autoSave()"></label><br>
-    <label>Płeć: <input type="text" id="editSex" oninput="autoSave()"></label><br>
-    <label>Nazwisko rodowe ojca: <input type="text" id="editFathersFamilyName" oninput="autoSave()"></label><br>
-    <label>Nazwisko rodowe matki: <input type="text" id="editMothersFamilyName" oninput="autoSave()"></label><br>
-    <label>Miejsce urodzenia: <input type="text" id="editBirthPlace" oninput="autoSave()"></label><br>
-    <label>Adres zameldowania: <input type="text" id="editAddress" oninput="autoSave()"></label><br>
-    <label>Data zameldowania: <input type="date" id="editCheckInDate" oninput="autoSave()"></label><br>
-    <label>Sekcja Rogo: <input type="text" id="editRogo" oninput="autoSave()"></label><br>
-    <button onclick="closeModal()">Zamknij</button>
-    <button onclick="clearData()">Wyczyść dane</button>
-</div>
+        <label>Imię: <input type="text" id="editName" oninput="autoSave()"></label><br>
+        <label>Nazwisko: <input type="text" id="editSurname" oninput="autoSave()"></label><br>
+        <label>Obywatelstwo: <input type="text" id="editNationality" oninput="autoSave()"></label><br>
+        <label>Data urodzenia: <input type="date" id="editBirthday" oninput="autoSave()"></label><br>
+        <label>PESEL: <input type="text" id="editPesel" oninput="autoSave()"></label><br>
+        <label>Link do zdjęcia: <input type="text" id="editPhoto" oninput="autoSave()"></label><br>
+        <button onclick="closeModal()">Zamknij</button>
+    </div>
 
-<script>
-    document.addEventListener("DOMContentLoaded", loadData);
+     <script>
+        document.addEventListener("DOMContentLoaded", loadData);
 
-    function formatDate(dateStr) {
-        if (!dateStr || dateStr === "BRAK") return "BRAK";
-        const date = new Date(dateStr);
-        const day = String(date.getDate()).padStart(2, '0');
-        const month = String(date.getMonth() + 1).padStart(2, '0');
-        const year = date.getFullYear();
-        return `${day}.${month}.${year}`;
-    }
+        function formatDate(dateStr) {
+            if (!dateStr) return "";
+            const date = new Date(dateStr);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return ${day}.${month}.${year};
+        }
 
-    function loadData() {
-        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
-            let value = localStorage.getItem(id) || "BRAK";
-            if (id === "birthday" || id === "checkInDate") {
-                document.getElementById(id).textContent = formatDate(value);
-            } else {
-                document.getElementById(id).textContent = value;
-                if (value !== "BRAK") document.getElementById(id).classList.add("editable");
-            }
-        });
-    }
-
-    function editData() {
-        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
-            let inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
-            if (inputElement) {
-                inputElement.value = localStorage.getItem(id) || "";
-            }
-        });
-        document.getElementById("editModal").classList.remove("hidden");
-    }
-
-    function autoSave() {
-        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
-            let inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
-            if (inputElement) {
-                let value = inputElement.value;
-                localStorage.setItem(id, value || "BRAK");
-                if (id === "birthday" || id === "checkInDate") {
+        function loadData() {
+            ["name", "surname", "nationality", "birthday", "pesel", "photo"].forEach(id => {
+                let value = localStorage.getItem(id) || (id === "photo" ? "#" : "BRAK");
+                if (id === "photo") {
+                    document.getElementById(id).src = value;
+                } else if (id === "birthday" && value) {
                     document.getElementById(id).textContent = formatDate(value);
                 } else {
-                    document.getElementById(id).textContent = value || "BRAK";
-                    if (value) document.getElementById(id).classList.add("editable");
+                    document.getElementById(id).textContent = value;
+                    if (value !== "BRAK") document.getElementById(id).classList.add("editable");
                 }
-            }
-        });
-    }
+            });
+        }
 
-    function closeModal() {
-        document.getElementById("editModal").classList.add("hidden");
-    }
+        function editData() {
+            document.getElementById("editName").value = localStorage.getItem("name") || "";
+            document.getElementById("editSurname").value = localStorage.getItem("surname") || "";
+            document.getElementById("editNationality").value = localStorage.getItem("nationality") || "";
+            document.getElementById("editBirthday").value = localStorage.getItem("birthday") || "";
+            document.getElementById("editPesel").value = localStorage.getItem("pesel") || "";
+            document.getElementById("editPhoto").value = localStorage.getItem("photo") || "";
+            document.getElementById("editModal").classList.remove("hidden");
+        }
 
-    function clearData() {
-        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
-            localStorage.removeItem(id);
-            document.getElementById(id).textContent = "BRAK";
-            document.getElementById(id).classList.remove("editable");
-        });
-        closeModal();
-    }
-</script>
- 
+        function autoSave() {
+            let fields = ["name", "surname", "nationality", "birthday", "pesel", "photo"];
+            fields.forEach(id => {
+                let inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
+                if (inputElement) {
+                    let value = inputElement.value;
+                    localStorage.setItem(id, value || (id === "photo" ? "#" : "BRAK"));
+                    if (id === "photo") {
+                        document.getElementById(id).src = value || "#";
+                    } else if (id === "birthday") {
+                        document.getElementById(id).textContent = formatDate(value);
+                    } else {
+                        document.getElementById(id).textContent = value || "BRAK";
+                        if (value) document.getElementById(id).classList.add("editable");
+                    }
+                }
+            });
+        }
 
+        function closeModal() {
+            document.getElementById("editModal").classList.add("hidden");
+        }
+    </script>                 
     </main>
   <section id="bottom">
         <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
@@ -383,43 +369,39 @@
 
         <img src="assets/dowod_files/arrow1.svg" alt="arrow" id="rotation" style="transform: rotate(-90deg);">
     </section>
- <div id="rogo"> 
-    <div class="content">
-        <p class="krecha"></p>
-        <section class="dana">
-            <p class="info">Nazwisko rodowe</p>
-            <p class='main' id="familyName"><strong></strong> BRAK </p>
-        </section>
-        <p class="krecha"></p>
-        <section class="dana">
-            <p class="info">Płeć</p>
-            <p class='main' id="sex"><strong></strong> BRAK </p>
-        </section>
-        <p class="krecha"></p>
-        <section class="dana">
-            <p class="info">Nazwisko rodowe ojca</p>
-            <p class='main' id="fathersFamilyName"><strong></strong> BRAK </p>
-        </section>
-        <p class="krecha"></p>
-        <section class="dana">
-            <p class="info">Nazwisko rodowe matki</p>
-            <p class='main' id="mothersFamilyName"><strong></strong> BRAK</p>
-        </section>
-        <p class="krecha"></p>
-        <section class="dana">
-            <p class="info">Miejsce urodzenia</p>
-            <p class='main' id="birthPlace"><strong></strong> BRAK</p>
-        </section>
-        <p class="krecha"></p>
-        <section class="dana">
-            <p class="info">Adres zameldowania na pobyt stały</p>
-            <p class='main' id="address"><strong></strong> BRAK</p>
-        </section>
-        <p class="krecha"></p>
-        <section class="dana">
-            <p class="info">Data zameldowania na pobyt stały</p>
-            <p class='main' id="checkInDate"><strong></strong> BRAK</p>
-        </section>
+<div id="rogo"> 
+        <div class="content">
+            <p class="krecha"></p>
+            <section class="dana">
+                <p class="info">Nazwiskо rodowе</p>
+                <p class='main' id="familyName"><strong></strong> BRAK </p>
+            </section>
+            <p class="krecha"></p>
+            <section class="dana">
+                <p class="info">Płеć</p>
+                <p class='main' id="sex"><strong></strong> BRAK </p>
+            </section>
+            <p class="krecha"></p>
+            <section class="dana">
+                <p class="info">Nazwiskо rodowе ojca</p>
+                <p class='main' id="fathersFamilyName"><strong></strong> BRAK </p>
+            </section>
+            <p class="krecha"></p>
+            <section class="dana">
+                <p class="info">Nazwiskо rodowе matki</p>
+                <p class='main' id="mothersFamilyName"><strong></strong> BRAK</p>
+            </section>
+            <p class="krecha"></p>
+            <section class="dana">
+                <p class="info">Miejsce urоdzenia</p>
+                <p class='main' id="birthPlace"><strong></strong> BRAK</p>
+            </section>
+            <p class="krecha"></p>
+            <p class="krecha"></p>
+            <section class="dana">
+                <p class="info">Аdres zameldоwania na pobyt stały</p>
+                <p class='main' id="address"><strong></strong> BRAK</p>
+            </section>
             <p class="krecha"></p>
             <section class="dana">
                 <p class="info">Data zameldоwaniа na pobyt stały</p>
