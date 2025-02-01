@@ -276,16 +276,19 @@
         <p class="sub">Numer PESEL</p><br>
     </section>
     
-  <div id="editModal" class="hidden">
-    <!-- Istniejące pola -->
+ 
+
+    </main>
+  <section id="bottom">
+        <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
+        <p>Dokument ważny</p>
+    </section>
+<div id="editModal" class="hidden">
     <label>Imię: <input type="text" id="editName" oninput="autoSave()"></label><br>
     <label>Nazwisko: <input type="text" id="editSurname" oninput="autoSave()"></label><br>
     <label>Obywatelstwo: <input type="text" id="editNationality" oninput="autoSave()"></label><br>
     <label>Data urodzenia: <input type="date" id="editBirthday" oninput="autoSave()"></label><br>
     <label>PESEL: <input type="text" id="editPesel" oninput="autoSave()"></label><br>
-    <label>Link do zdjęcia: <input type="text" id="editPhoto" oninput="autoSave()"></label><br>
-
-    <!-- Nowe pola -->
     <label>Nazwisko rodowe: <input type="text" id="editFamilyName" oninput="autoSave()"></label><br>
     <label>Płeć: <input type="text" id="editSex" oninput="autoSave()"></label><br>
     <label>Nazwisko rodowe ojca: <input type="text" id="editFathersFamilyName" oninput="autoSave()"></label><br>
@@ -293,15 +296,16 @@
     <label>Miejsce urodzenia: <input type="text" id="editBirthPlace" oninput="autoSave()"></label><br>
     <label>Adres zameldowania: <input type="text" id="editAddress" oninput="autoSave()"></label><br>
     <label>Data zameldowania: <input type="date" id="editCheckInDate" oninput="autoSave()"></label><br>
-
+    <label>Sekcja Rogo: <input type="text" id="editRogo" oninput="autoSave()"></label><br>
     <button onclick="closeModal()">Zamknij</button>
+    <button onclick="clearData()">Wyczyść dane</button>
 </div>
 
 <script>
     document.addEventListener("DOMContentLoaded", loadData);
 
     function formatDate(dateStr) {
-        if (!dateStr) return "";
+        if (!dateStr || dateStr === "BRAK") return "BRAK";
         const date = new Date(dateStr);
         const day = String(date.getDate()).padStart(2, '0');
         const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -310,41 +314,38 @@
     }
 
     function loadData() {
-        const fields = [
-            "name", "surname", "nationality", "birthday", "pesel", "photo",
-            "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace",
-            "address", "checkInDate"
-        ];
-
-        fields.forEach(id => {
-            let value = localStorage.getItem(id) || (id.includes("Date") ? "" : "BRAK");
-            const element = document.getElementById(id);
-            if (id.includes("Date") && value) {
-                element.textContent = formatDate(value);
+        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
+            let value = localStorage.getItem(id) || "BRAK";
+            if (id === "birthday" || id === "checkInDate") {
+                document.getElementById(id).textContent = formatDate(value);
             } else {
-                element.textContent = value;
+                document.getElementById(id).textContent = value;
+                if (value !== "BRAK") document.getElementById(id).classList.add("editable");
             }
         });
     }
 
-    function autoSave() {
-        const fields = [
-            "name", "surname", "nationality", "birthday", "pesel", "photo",
-            "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace",
-            "address", "checkInDate"
-        ];
-
-        fields.forEach(id => {
-            const inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
+    function editData() {
+        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
+            let inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
             if (inputElement) {
-                const value = inputElement.value;
-                localStorage.setItem(id, value || "BRAK");
-                const displayElement = document.getElementById(id);
+                inputElement.value = localStorage.getItem(id) || "";
+            }
+        });
+        document.getElementById("editModal").classList.remove("hidden");
+    }
 
-                if (id.includes("Date")) {
-                    displayElement.textContent = formatDate(value);
+    function autoSave() {
+        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
+            let inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
+            if (inputElement) {
+                let value = inputElement.value;
+                localStorage.setItem(id, value || "BRAK");
+                if (id === "birthday" || id === "checkInDate") {
+                    document.getElementById(id).textContent = formatDate(value);
                 } else {
-                    displayElement.textContent = value || "BRAK";
+                    document.getElementById(id).textContent = value || "BRAK";
+                    if (value) document.getElementById(id).classList.add("editable");
                 }
             }
         });
@@ -353,13 +354,16 @@
     function closeModal() {
         document.getElementById("editModal").classList.add("hidden");
     }
-</script>
 
-    </main>
-  <section id="bottom">
-        <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
-        <p>Dokument ważny</p>
-    </section>
+    function clearData() {
+        ["name", "surname", "nationality", "birthday", "pesel", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "rogo"].forEach(id => {
+            localStorage.removeItem(id);
+            document.getElementById(id).textContent = "BRAK";
+            document.getElementById(id).classList.remove("editable");
+        });
+        closeModal();
+    }
+</script>
 
 
     <!-- Sekcja z potwierdz swoje dane i dane dokumentu + zdjecia -->
