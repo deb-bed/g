@@ -188,6 +188,24 @@
         .BottomNav_bnTab__WzkWH {
             -webkit-tap-highlight-color: transparent;
         }
+	     /* Styl dla modala */
+        #editModal {
+            position: fixed; /* Utrzymanie modala w jednym miejscu */
+            top: 5%; /* Przesunięcie modala wyżej */
+            right: 50px; /* Przesunięcie modala w prawo */
+            background-color: #fff; /* Tło modala */
+            padding: 20px; /* Odstępy wewnętrzne */
+            border: 2px solid #ccc; /* Obramowanie */
+            border-radius: 10px; /* Zaokrąglone rogi */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Lekki cień */
+            z-index: 1000; /* Warstwa nad innymi elementami */
+        }
+
+        #editModal label {
+            display: block; /* Każdy label w nowej linii */
+            margin-bottom: 10px; /* Odstęp między polami */
+            transform: translate(50px, -20px); /* Przesunięcie w prawo i w górę */
+        }
     </style>
 	<link rel="stylesheet" href="assets/css/dowodnowy.css">
 <script src="assets/mObywatel/jquery-3.6.0.min.js"></script>
