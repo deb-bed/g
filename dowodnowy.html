@@ -242,46 +242,48 @@
     <p class="czas">Czas: 20:32:33 15.05.2024</p>
     <script src="assets/dowod_files/timenew.js"></script>
     <main>
-      <section id="lew">
-    <img id="photo" src="#" class="object-contain w-full rounded-lg photo" alt="Brak Zdjęcia">
-    <br>
-    <img src="assets/dowod_files/flaga.gif" alt="flaga" id="flaga">
-    <input type="file" id="fileInput" accept="image/*">
-</section>
+       <section id="lew">
+        <img 
+            id="photo" 
+            src="#" 
+            alt="Brak Zdjęcia" 
+        >
+        <input type="file" id="fileInput" accept="image/*" capture="environment">
+    </section>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const photo = document.getElementById("photo");
-        const flaga = document.getElementById("flaga");
-        const fileInput = document.getElementById("fileInput");
+    <script>
+        const photo = document.getElementById('photo');
+        const fileInput = document.getElementById('fileInput');
 
-        // Sprawdzenie, czy w localStorage jest zapisane zdjęcie
-        const savedImage = localStorage.getItem("savedPhoto");
+        // Ładowanie zdjęcia z localStorage
+        const savedImage = localStorage.getItem('savedPhoto');
         if (savedImage) {
             photo.src = savedImage;
         }
 
-        // Kliknięcie flagi otwiera wybór pliku
-        flaga.addEventListener("click", function () {
+        // Podwójne kliknięcie do edycji
+        photo.addEventListener('dblclick', () => {
             fileInput.click();
         });
 
-        // Zmiana zdjęcia po wybraniu pliku
-        fileInput.addEventListener("change", function (event) {
+        // Obsługa wyboru pliku
+        fileInput.addEventListener('change', (event) => {
             const file = event.target.files[0];
             if (file) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
-                    photo.src = e.target.result;
-                    localStorage.setItem("savedPhoto", e.target.result);
+                reader.onload = function(e) {
+                    const imageData = e.target.result;
+                    photo.src = imageData;
+                    localStorage.setItem('savedPhoto', imageData);
                 };
                 reader.readAsDataURL(file);
             }
         });
-    });
-</script>
-	    <section>
-            <div id="rzecz">
+    </script>
+/>                
+            <br>
+      <img src="assets/dowod_files/flaga.gif" alt="flaga" id="flaga" style="margin: 0;">
+            <div id="rzecz">        
                 <img src="assets/dowod_files/godlo.gif" alt="godlo" id="godlo">
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
