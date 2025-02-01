@@ -286,14 +286,25 @@
         <button onclick="closeModal()">Zamknij</button>
     </div>
 
-    <script>
+     <script>
         document.addEventListener("DOMContentLoaded", loadData);
+
+        function formatDate(dateStr) {
+            if (!dateStr) return "";
+            const date = new Date(dateStr);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
 
         function loadData() {
             ["name", "surname", "nationality", "birthday", "pesel", "photo"].forEach(id => {
                 let value = localStorage.getItem(id) || (id === "photo" ? "#" : "BRAK");
                 if (id === "photo") {
                     document.getElementById(id).src = value;
+                } else if (id === "birthday" && value) {
+                    document.getElementById(id).textContent = formatDate(value);
                 } else {
                     document.getElementById(id).textContent = value;
                     if (value !== "BRAK") document.getElementById(id).classList.add("editable");
@@ -320,6 +331,8 @@
                     localStorage.setItem(id, value || (id === "photo" ? "#" : "BRAK"));
                     if (id === "photo") {
                         document.getElementById(id).src = value || "#";
+                    } else if (id === "birthday") {
+                        document.getElementById(id).textContent = formatDate(value);
                     } else {
                         document.getElementById(id).textContent = value || "BRAK";
                         if (value) document.getElementById(id).classList.add("editable");
@@ -584,6 +597,43 @@
             blueSection.style.display = 'none';
         });
   </script>
-   
+    <script>
+        
+
+        function setData(id, value) {
+
+            document.getElementById(id).innerHTML = value;
+
+        }
+
+        for (let i = 0; i < localStorage.length; i++) {
+            // Get the key and value for each item
+            let key = localStorage.key(i);
+            let value = localStorage.getItem(key);
+
+            if (key != "photo" && key != "adress1" && key != "adress2" && key != "city") {
+                console.log(key);
+
+                try {
+                    // Try to call setData
+                    setData(key, value);
+                } catch (error) {
+                    // If an error occurs, log it and continue the loop
+                    console.error(`Error setting data for key ${key}:`, error);
+                }
+            }
+        }
+        try {
+           document.getElementById("photo").src = localStorage.getItem("photo");
+        } catch (error) {
+            console.error(error);
+        }
+        try{
+            setData("address",localStorage.getItem("adress1") + "<br>" + localStorage.getItem("adress2") + " " + localStorage.getItem("city"))
+        }catch(error) {
+            console.error(error);
+        }
+
+    </script>
 </body>
 </html>
