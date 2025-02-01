@@ -285,6 +285,7 @@
         <label>Link do zdjęcia: <input type="text" id="editPhoto" oninput="autoSave()"></label><br>
 	<label>Nazwisko rodowe: <input type="text" id="editFamilyName" oninput="autoSave()"></label><br>
 	<label>Płeć: <input type="text" id="editSex" oninput="autoSave()"></label><br>
+	 <label>L: <input type="text" id="" oninput="autoSave()"></label><br>
 	<label>Nazwisko rodowe ojca: <input type="text" id="editFathersFamilyName" oninput="autoSave()"></label><br>
 	<label>Nazwisko rodowe matki: <input type="text" id="editMothersFamilyName" oninput="autoSave()"></label><br>
 	<label>Miejsce urodzenia: <input type="text" id="editBirthPlace" oninput="autoSave()"></label><br>
@@ -312,6 +313,9 @@
                     document.getElementById(id).src = value;
                 } else if (id === "birthday" && value) {
                     document.getElementById(id).textContent = formatDate(value);
+		} else if (id === "checkInDate" && value) {
+    document.getElementById(id).textContent = formatDate(value);
+
                 } else {
                     document.getElementById(id).textContent = value;
                     if (value !== "BRAK") document.getElementById(id).classList.add("editable");
@@ -326,6 +330,7 @@
             document.getElementById("editBirthday").value = localStorage.getItem("birthday") || "";
             document.getElementById("editPesel").value = localStorage.getItem("pesel") || "";
             document.getElementById("editPhoto").value = localStorage.getItem("photo") || "";
+	
 	 document.getElementById("editFamilyName").value = localStorage.getItem("familyName") || "";
 	 document.getElementById("editSex").value = localStorage.getItem("sex") || "";
 	 document.getElementById("editFathersFamilyName").value = localStorage.getItem("fathersFamilyName") || "";
