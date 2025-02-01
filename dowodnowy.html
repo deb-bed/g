@@ -275,15 +275,7 @@
         <p id="pesel" class="editable">BRAK</p>
         <p class="sub">Numer PESEL</p><br>
     </section>
-    
- 
-
-    </main>
-  <section id="bottom">
-        <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
-        <p>Dokument ważny</p>
-    </section>
-<div id="editModal" class="hidden">
+    <div id="editModal" class="hidden">
     <label>Imię: <input type="text" id="editName" oninput="autoSave()"></label><br>
     <label>Nazwisko: <input type="text" id="editSurname" oninput="autoSave()"></label><br>
     <label>Obywatelstwo: <input type="text" id="editNationality" oninput="autoSave()"></label><br>
@@ -364,8 +356,15 @@
         closeModal();
     }
 </script>
+ 
 
+    </main>
+  <section id="bottom">
+        <img src="assets/dowod_files/checkmark.svg" alt="checkmark">
+        <p>Dokument ważny</p>
+    </section>
 
+	
     <!-- Sekcja z potwierdz swoje dane i dane dokumentu + zdjecia -->
     <a class="buto" style="cursor: pointer; display: flex; align-items: center; padding: 40px 20px ; border-radius: 10px; background-color: white; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);">
         <img  src="assets/dowod_files/checkbo.png" alt="checkbox">
