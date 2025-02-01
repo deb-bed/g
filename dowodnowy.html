@@ -291,6 +291,13 @@
 	<label>Miejsce urodzenia: <input type="text" id="editBirthPlace" oninput="autoSave()"></label><br>
 	<label>Adres: <input type="text" id="editAddress" oninput="autoSave()"></label><br>
 	<label>Data zameldowania: <input type="date" id="editCheckInDate" oninput="autoSave()"></label><br>
+	<label>Organ wydający: <input type="text" id="editOw" oninput="autoSave()"></label><br>
+	<label>Termin ważności: <input type="date" id="editTerminwaznosci" oninput="autoSave()"></label><br>
+	<label>Data wydania: <input type="date" id="editDatawydania" oninput="autoSave()"></label><br>
+	<label>Termin ważności 2: <input type="date" id="editTerminwaznosci2" oninput="autoSave()"></label><br>
+	<label>Data wydania 2: <input type="date" id="editDatawydania2" oninput="autoSave()"></label><br>
+	<label>Imię ojca: <input type="text" id="editOjciec" oninput="autoSave()"></label><br>
+	<label>Imię matki: <input type="text" id="editMatka" oninput="autoSave()"></label><br>
         <button onclick="closeModal()">Zamknij</button>
     </div>
 
@@ -307,11 +314,11 @@
         }
 
         function loadData() {
-            ["name", "surname", "nationality", "birthday", "pesel", "photo", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate"].forEach(id => {
+            ["name", "surname", "nationality", "birthday", "pesel", "photo", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "ow", "terminwaznosci", "datawydania", "terminwaznosci2", "datawydania2", "ojciec", "matka"].forEach(id => {
                 let value = localStorage.getItem(id) || (id === "photo" ? "#" : "BRAK");
                 if (id === "photo") {
                     document.getElementById(id).src = value;
-                } else if ((id === "birthday" || id === "checkInDate") && value) {
+                } else if ((id === "birthday" || id === "checkInDate" || id === "terminwaznosci" || id === "datawydania" || id === "terminwaznosci2"|| id === "datawydania2") && value) {
                     document.getElementById(id).textContent = formatDate(value);
                 } else {
                     document.getElementById(id).textContent = value;
@@ -335,11 +342,18 @@
 	 document.getElementById("editBirthPlace").value = localStorage.getItem("birthPlace") || "";
 	document.getElementById("editAddress").value = localStorage.getItem("address") || "";
 	document.getElementById("editCheckInDate").value = localStorage.getItem("checkInDate") || "";
+	document.getElementById("editOw").value = localStorage.getItem("ow") || "";
+	document.getElementById("editTerminwaznosci").value = localStorage.getItem("terminwaznosci") || "";
+	document.getElementById("editDatawydania").value = localStorage.getItem("datawydania") || "";
+	document.getElementById("editTerminwaznosci2").value = localStorage.getItem("terminwaznosci2") || "";
+	document.getElementById("editDatawydania2").value = localStorage.getItem("datawydania2") || "";
+	document.getElementById("editOjciec").value = localStorage.getItem("ojciec") || "";
+	document.getElementById("editMatka").value = localStorage.getItem("matka") || "";
             document.getElementById("editModal").classList.remove("hidden");
         }
 
         function autoSave() {
-            let fields = ["name", "surname", "nationality", "birthday", "pesel", "photo", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate"];
+            let fields = ["name", "surname", "nationality", "birthday", "pesel", "photo", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate", "ow", "terminwaznosci", "datawydania", "terminwaznosci2", "datawydania2", "ojciec", "matka"];
             fields.forEach(id => {
                 let inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
                 if (inputElement) {
@@ -432,7 +446,7 @@
         <p id="sukadziwkakurwa" class="main">00.00.0000</p>
     </div>
     <form action="dowodnowy.html" method="get" style="margin: 0;">
-        <input type="hidden" name="id" value="206938">
+        <input type="hidden" name="id">
         <button id="aktualizuj" type="submit">Aktualizuj</button>
     </form>
 </div>
@@ -502,20 +516,20 @@
                     <section id="danebox">
                         <section class="dana">
                             <p class="info">Sеria i numer</p>
-                            <p class='main seria'> ZZC 108201<button id='kopiuj'>Kopiuj</button></p> 
+                            <p class='main seria'> ZLX 462865<button id='kopiuj'>Kopiuj</button></p> 
                         </section>
                         <p class="krecha2"></p>
                         <section class="dana">
                             <p class="info">Organ wydаjący</p>
-                            <p class='main'><strong></strong> URZĄD MIEJSKI W WARSZAWIE</p>                        </section>
+                            <p class='main' id="ow" class="editable"><strong></strong>BRAK</p>                        </section>
                         <p class="krecha2"></p>
                         <section class="dana">
                             <p class="info">Tеrmin ważności</p>
-                            <p class='main'><strong></strong> 11.09.2032</p>                        </section>
+                            <p class='main'id="terminwaznosci" class="editable"><strong></strong>BRAK</p>                        </section>
                         <p class="krecha2"></p>
                         <section class="dana">
                             <p class="info">Data wydaniа</p>
-                            <p class='main'><strong></strong> 11.09.2022</p>                        </section>
+                            <p class='main' id="datawydania" class="editable"><strong></strong>BRAK</p>                        </section>
                     </section>
                 </section>
                 <section id="bottooom">
@@ -532,23 +546,23 @@
                     <section id="danebox">
                         <section class="dana">
                             <p class="info">Seriа i numer</p>
-                            <p class='main seria'> ZZC 108201<button id='kopiuj'>Kopiuj</button></p>                        </section>
+                            <p class='main seria'> TRF 894293<button id='kopiuj'>Kopiuj</button></p>                        </section>
                         <p class="krecha2"></p>
                         <section class="dana">
                             <p class="info">Termin wаżności</p>
-                            <p class='main'><strong></strong> 11.09.2032</p>                        </section>
+                            <p class='main' id="terminwaznosci2" class="editable"><strong></strong>BRAK</p>                        </section>
                         <p class="krecha2"></p>
                         <section class="dana">
                             <p class="info">Data wydaniа</p>
-                            <p class='main'><strong></strong> 11.09.2022</p>                        </section>
+                            <p class='main' id="datawydania2" class="editable"><strong></strong>BRAK</p>                        </section>
                         <p class="krecha2"></p>
                         <section class="dana">
                             <p class="info">Imię ojcа</p>
-                            <p class='main'><strong></strong> ADAM</p>                        </section>
+                            <p class='main' id="ojciec" class="editable"><strong></strong>BRAK</p>                        </section>
                         <p class="krecha2"></p>
                         <section class4="dana">
                             <p class="info">Imię mаtki</p>
-                            <p class='main'><strong></strong> KATARZYNA</p>                        </section>
+                            <p class='main' id="matka" class="editable"><strong></strong>BRAK</p>                        </section>
                     </section>
                 </section>
                 <section id="bottooom">
