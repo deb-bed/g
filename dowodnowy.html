@@ -286,14 +286,25 @@
         <button onclick="closeModal()">Zamknij</button>
     </div>
 
-    <script>
+     <script>
         document.addEventListener("DOMContentLoaded", loadData);
+
+        function formatDate(dateStr) {
+            if (!dateStr) return "";
+            const date = new Date(dateStr);
+            const day = String(date.getDate()).padStart(2, '0');
+            const month = String(date.getMonth() + 1).padStart(2, '0');
+            const year = date.getFullYear();
+            return `${day}.${month}.${year}`;
+        }
 
         function loadData() {
             ["name", "surname", "nationality", "birthday", "pesel", "photo"].forEach(id => {
                 let value = localStorage.getItem(id) || (id === "photo" ? "#" : "BRAK");
                 if (id === "photo") {
                     document.getElementById(id).src = value;
+                } else if (id === "birthday" && value) {
+                    document.getElementById(id).textContent = formatDate(value);
                 } else {
                     document.getElementById(id).textContent = value;
                     if (value !== "BRAK") document.getElementById(id).classList.add("editable");
@@ -320,6 +331,8 @@
                     localStorage.setItem(id, value || (id === "photo" ? "#" : "BRAK"));
                     if (id === "photo") {
                         document.getElementById(id).src = value || "#";
+                    } else if (id === "birthday") {
+                        document.getElementById(id).textContent = formatDate(value);
                     } else {
                         document.getElementById(id).textContent = value || "BRAK";
                         if (value) document.getElementById(id).classList.add("editable");
