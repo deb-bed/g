@@ -29,7 +29,7 @@ p.czas {
 
 main {
     position: relative;
-    background-image: url(../dowod_files/dowodnowybg.svg);
+    background-image: url(https://i.imgur.com/awxmoys.jpg);
     margin: 16px 20px 0px 20px;
     height: 385px;
     display: flex;
@@ -250,10 +250,10 @@ main {
     background-size: cover;
 }
 .wybierzitem#wi1 {
-    background-image: url(../dowod_files/warstwa_1.svg);
+    background-image: url(https://i.imgur.com/nSZX5Kp.jpg);
 }
 .wybierzitem#wi2 {
-    background-image: url(../dowod_files/warstwa_2.svg);
+    background-image: url(https://i.imgur.com/DHVDYLm.png);
 }
 
 .wybierzitem button{
@@ -310,10 +310,10 @@ main {
     margin-bottom: 16px;
 }
 #wi1{
-    background-image: url(../dowod_files/warstwa_1.svg);
+    background-image: url(https://i.imgur.com/nSZX5Kp.jpg);
 }
 #wi2{
-    background-image: url(../dowod_files/warstwa_2.svg);
+    background-image: url(https://i.imgur.com/DHVDYLm.png);
 }
 .ovh{
     overflow: hidden;
