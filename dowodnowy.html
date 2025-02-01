@@ -311,11 +311,8 @@
                 let value = localStorage.getItem(id) || (id === "photo" ? "#" : "BRAK");
                 if (id === "photo") {
                     document.getElementById(id).src = value;
-                } else if (id === "birthday" && value) {
+                } else if ((id === "birthday" || id === "checkInDate") && value) {
                     document.getElementById(id).textContent = formatDate(value);
-		} else if (id === "checkInDate" && value) {
-    document.getElementById(id).textContent = formatDate(value);
-
                 } else {
                     document.getElementById(id).textContent = value;
                     if (value !== "BRAK") document.getElementById(id).classList.add("editable");
