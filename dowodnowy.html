@@ -342,7 +342,7 @@
         }
 
         function autoSave() {
-            let fields = ["name", "surname", "nationality", "birthday", "pesel", "photo", "famiyName", "sex", "fathersFamiyName", "mothersFamilyName", "birthPlace", "address", "checkInDate"];
+            let fields = ["name", "surname", "nationality", "birthday", "pesel", "photo", "familyName", "sex", "fathersFamilyName", "mothersFamilyName", "birthPlace", "address", "checkInDate"];
             fields.forEach(id => {
                 let inputElement = document.getElementById("edit" + id.charAt(0).toUpperCase() + id.slice(1));
                 if (inputElement) {
@@ -393,8 +393,8 @@
         <div class="content">
             <p class="krecha"></p>
             <section class="dana">
-               <p id="surname" class="editable">BRAK</p>
-        <p class="sub">Nazwisko rodowe</p><br>
+               <p class="info">Nazwiskо rodowе</p>
+                <p class='main' id="familyName"  class="editable"><strong></strong> BRAK </p>
             </section>
             <p class="krecha"></p>
             <section class="dana">
@@ -403,8 +403,8 @@
             </section>
             <p class="krecha"></p>
             <section class="dana">
-                <p id="surname" class="editable">BRAK</p>
-        <p class="sub">Nazwisko rodowe ojca</p><br>
+                <p class="info">Nazwiskо rodowе ojca</p>
+                <p class='main' id="fathersFamilyName"  class="editable"><strong></strong> BRAK </p>
             </section>
             <p class="krecha"></p>
             <section class="dana">
