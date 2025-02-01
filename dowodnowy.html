@@ -243,47 +243,17 @@
     <script src="assets/dowod_files/timenew.js"></script>
     <main>
        <section id="lew">
-        <img 
-            id="photo" 
-            src="#" 
-            alt="Brak Zdjęcia" 
-        >
-        <input type="file" id="fileInput" accept="image/*" capture="environment">
-    </section>
+            <img 
+    id="photo"
+	src="#" 
+    class="object-contain w-full rounded-lg photo" 
+    style="margin: 0;" 
+    alt="Brak Zdjęcia"
+/>
 
-    <script>
-        const photo = document.getElementById('photo');
-        const fileInput = document.getElementById('fileInput');
-
-        // Ładowanie zdjęcia z localStorage
-        const savedImage = localStorage.getItem('savedPhoto');
-        if (savedImage) {
-            photo.src = savedImage;
-        }
-
-        // Podwójne kliknięcie do edycji
-        photo.addEventListener('dblclick', () => {
-            fileInput.click();
-        });
-
-        // Obsługa wyboru pliku
-        fileInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const imageData = e.target.result;
-                    photo.src = imageData;
-                    localStorage.setItem('savedPhoto', imageData);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-    </script>
-/>                
             <br>
       <img src="assets/dowod_files/flaga.gif" alt="flaga" id="flaga" style="margin: 0;">
-            <div id="rzecz">        
+            <div id="rzecz">
                 <img src="assets/dowod_files/godlo.gif" alt="godlo" id="godlo">
                 <p>Rzeczpospolita<br>Polska</p>
             </div>
