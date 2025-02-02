@@ -335,7 +335,7 @@
                 let value = localStorage.getItem(id) || (id === "photo" ? "#" : "BRAK");
                 if (id === "photo") {
                     document.getElementById(id).src = value;
-               const fields = ['birthday', 'checkInDate', 'terminwaznosci', 'datawydania', 'terminwaznosci2', 'datawydania2'];
+               } else if ((id === "birthday" || id === "checkInDate" || id === "terminwaznosci" || id === "datawydania" || id === "terminwaznosci2"|| id === "datawydania2") && value) {
                     document.getElementById(id).textContent = formatDate(value);
                 } else {
                     document.getElementById(id).textContent = value;
@@ -378,8 +378,8 @@
                     localStorage.setItem(id, value || (id === "photo" ? "#" : "BRAK"));
                     if (id === "photo") {
                         document.getElementById(id).src = value || "#";
-                   const fields = ['birthday', 'checkInDate', 'terminwaznosci', 'datawydania', 'terminwaznosci2', 'datawydania2'];
-                        document.getElementById(id).textContent = formatDate(value);
+                   } else if ((id === "birthday" || id === "checkInDate" || id === "terminwaznosci" || id === "datawydania" || id === "terminwaznosci2"|| id === "datawydania2") && value) {
+                    document.getElementById(id).textContent = formatDate(value);
                     } else {
                         document.getElementById(id).textContent = value || "BRAK";
                         if (value) document.getElementById(id).classList.add("editable");
