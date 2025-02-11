@@ -60,42 +60,31 @@
         <p class="text-gray-600" id="login-text">Zaloguj się do aplikacji.</p>
         <div class="mt-6 bg-white p-4 rounded-2xl shadow">
            <label for="password" class="block text-sm font-medium text-gray-500">Hasło</label>
-  <div class="mt-1 relative rounded-md shadow-sm">
-      <input type="password" name="password" id="password" class="block w-full pr-10 pl-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-      <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
-          <i class="fas fa-eye text-gray-400"></i>
-      </div>
-  </div>
-  <a href="#" class="kolorki2 mt-2 inline-block">Nie pamiętasz hasła?</a>
+            <div class="mt-1 relative rounded-md shadow-sm">
+                <input type="password" name="password" id="password" class="block w-full pr-10 pl-3 py-2 border border-gray-300 rounded-md focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                <div class="absolute inset-y-0 right-0 pr-3 flex items-center cursor-pointer">
+                    <i class="fas fa-eye text-gray-400"></i>
+                </div>
+            </div>
+            <a href="#" class="kolorki2 mt-2 inline-block">Nie pamiętasz hasła?</a>
+        </div>
+    </div>
+    <div class="p-4">
+        <button onclick="window.location.href="validatePassword()" class="w-full kolorki py-3 rounded-3xl">
+    Zaloguj się
+</button>
+        <script>
+    function validatePassword() {
+        const inputPassword = document.getElementById("password").value;
+        const correctPassword = "jebackszo";
 
-  <!-- Przycisk logowania -->
-  <div class="p-4">
-      <button id="loginButton" class="w-full kolorki py-3 rounded-3xl">
-          Zaloguj się
-      </button>
-  </div>
-
-  <!-- Skrypt JavaScript -->
-  <script>
-      // Funkcja do sprawdzania hasła i przekierowania
-      function checkPassword() {
-          var enteredPassword = document.getElementById('password').value; // Pobieramy wartość hasła z inputa
-          var validPasswords = ['kaja123', 'polak418']; // Lista poprawnych haseł
-
-          // Sprawdzamy, czy wprowadzone hasło jest na liście poprawnych
-          if (validPasswords.includes(enteredPassword)) {
-              window.location.href = 'dashboard.html'; // Przekierowanie na dashboard.html po poprawnym haśle
-          } 
-          // Jeśli hasło jest błędne, nic się nie dzieje (brak komunikatu)
-      }
-
-      // Sprawdzamy, czy DOM jest załadowany, i dopiero potem dodajemy nasłuchiwanie na kliknięcie
-      document.addEventListener('DOMContentLoaded', function() {
-          var loginButton = document.getElementById('loginButton');
-          loginButton.addEventListener('click', checkPassword); // Przypisujemy funkcję do kliknięcia przycisku
-      });
-  </script>
-
+        if (inputPassword === correctPassword) {
+            window.location.href = 'dashboard.html';
+        } else {
+            alert("Nieprawidłowe hasło!");
+        }
+    }
+</script>
         <div class="flex justify-between items-center mt-4">
             <div class="flex items-center space-x-2">
                 <img src="assets/nowelogowanie/coi.png" alt="Bottom Logo" class="w-40 h-13" id="bottom-logo">
