@@ -26,14 +26,18 @@
 }
         #greeting {
   font-weight: bold; /* Pogrubienie */
-  margin-top: 5px; /* Przesunięcie w górę */
+  margin-top: 7px; /* Przesunięcie w górę */
+}
+        #login-text {
+  font-weight: bold; /* Pogrubienie tekstu */
+  margin-top: 2px; /* Przesunięcie tekstu o 2px w dół */
 }
     </style>
 </head>
 <body class="flex flex-col justify-between h-screen">
     <div class="p-4">
         <div class="flex items-center space-x-2">
-            <img src="assets/nowelogowanie/mOblogo.png" alt="Logo" class="w-40 h-14" id="top-logo">
+            <img src="assets/nowelogowanie/mOblogo.png" alt="Logo" class="w-40 h-13" id="top-logo">
         </div>
         <h1 id="greeting" class="mt-8 text-3xl font-bold">Dzień dobry!</h1>
         
@@ -51,7 +55,7 @@
     }
   </script>
         
-        <p class="text-gray-600">Zaloguj się do aplikacji.</p>
+        <p class="text-gray-600" id="login-text>Zaloguj się do aplikacji.</p>
         <div class="mt-6 bg-white p-4 rounded-2xl shadow">
             <label for="password" class="block text-sm font-medium text-gray-500">Hasło</label>
             <div class="mt-1 relative rounded-md shadow-sm">
