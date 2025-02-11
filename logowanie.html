@@ -73,20 +73,29 @@
         <button type="button" onclick="login()" class="w-full kolorki py-3 rounded-3xl">
     Zaloguj się
 </button>
-        <script>
+
+        
+       <script>
     function login() {
         var password = document.getElementById('password').value;
-        var correctPassword = "12345"; // Przykładowe poprawne hasło
 
+        // Tablica przechowująca poprawne hasła
+        var correctPasswords = ["12345", "kaja123", "polak"]; // Możesz dodać więcej haseł tutaj
+
+        // Sprawdzenie, czy wprowadzone hasło znajduje się w tablicy
         if (password === "") {
             alert("Proszę wprowadzić hasło.");
-        } else if (password === correctPassword) {
+        } else if (correctPasswords.includes(password)) {
+            // Jeśli hasło jest poprawne, przekierowanie na stronę
             window.location.href = 'dashboard.html';
         } else {
+            // Jeśli hasło jest niepoprawne
             alert("Niepoprawne hasło.");
         }
     }
 </script>
+
+        
         <div class="flex justify-between items-center mt-4">
             <div class="flex items-center space-x-2">
                 <img src="assets/nowelogowanie/coi.png" alt="Bottom Logo" class="w-40 h-13" id="bottom-logo">
