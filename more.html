@@ -193,6 +193,70 @@
             background-color: #d6d6d6;
             margin: 10px 0;
         }
+
+
+        /* Styl dla przycisku wylogowania */
+        .logout-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .logout-button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styl dla okna dialogowego */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .modal-buttons {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .modal-buttons button {
+            background: none;
+            border: none;
+            font-size: 16px;
+            color: #007BFF;
+            cursor: pointer;
+        }
+
+        .modal-buttons button:hover {
+            text-decoration: underline;
+        }
+
+
+        
     </style>
 </head>
 <body>
@@ -299,6 +363,38 @@
                     <img src="assets/images/ic_arrow_forward_gray.svg" alt="arrow" width="24" height="24">
                 </div>
         </div>
+
+
+            <!-- Przycisk wylogowania -->
+    <button class="logout-button" onclick="openModal()">Wyloguj</button>
+
+    <!-- Okno dialogowe -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <p>Czy chcesz się wylogować z aplikacji?</p>
+            <div class="modal-buttons">
+                <button onclick="closeModal()">Anuluj</button>
+                <button onclick="logout()">Wyloguj</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal() {
+            document.getElementById("logoutModal").style.display = "block";
+        }
+
+        function closeModal() {
+            document.getElementById("logoutModal").style.display = "none";
+        }
+
+        function logout() {
+            window.location.href = "logowanie.html";
+        }
+    </script>
+
+
+            
     </main>
 </body>
 
