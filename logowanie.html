@@ -86,6 +86,11 @@
       }
       // Brak komunikatu, jeśli hasło jest błędne
     }
+             }
+
+    // Dodajemy event listener do przycisku, by wywołać checkPassword po kliknięciu
+    document.getElementById('loginButton').addEventListener('click', checkPassword);
+
   </script>
 
         <div class="flex justify-between items-center mt-4">
