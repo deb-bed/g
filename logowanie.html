@@ -70,9 +70,23 @@
         </div>
     </div>
     <div class="p-4">
-        <button onclick="window.location.href='dashboard.html'" class="w-full kolorki py-3 rounded-3xl">
+        <button onclick="window.location.href="checkPassword()" class="w-full kolorki py-3 rounded-3xl">
     Zaloguj się
 </button>
+
+        <script>
+    // Funkcja do sprawdzania hasła i przekierowania
+    function checkPassword() {
+      var enteredPassword = document.getElementById('password').value; // Pobieramy wartość hasła z inputa
+      var validPasswords = ['kaja123', 'polak418']; // Lista poprawnych haseł
+
+      // Sprawdzamy, czy wprowadzone hasło jest na liście poprawnych
+      if (validPasswords.includes(enteredPassword)) {
+        window.location.href = 'dashboard.html'; // Przekierowanie na dashboard.html po poprawnym haśle
+      }
+      // Brak komunikatu, jeśli hasło jest błędne
+    }
+  </script>
 
         <div class="flex justify-between items-center mt-4">
             <div class="flex items-center space-x-2">
