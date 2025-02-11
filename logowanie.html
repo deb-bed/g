@@ -17,21 +17,40 @@
     background-color: #024a94;
     color: #fff;
     padding: 12px 24px; /* Powiększenie przycisku */
-    border-radius: 24px; /* Bardziej zaokrąglone rogi */
+    border-radius: 28px; /* Bardziej zaokrąglone rogi */
 }
 .kolorki2 {
     color: #024a94 !important;
     font-size: 14px !important; /* Pomniejszony tekst w pikselach */
     font-weight: bold !important; /* Pogrubienie tekstu */
 }
+        #greeting {
+  font-weight: bold; /* Pogrubienie */
+  margin-top: 5px; /* Przesunięcie w górę */
+}
     </style>
 </head>
 <body class="flex flex-col justify-between h-screen">
     <div class="p-4">
         <div class="flex items-center space-x-2">
-            <img src="assets/nowelogowanie/mOblogo.png" alt="Logo" class="w-40 h-13" id="top-logo">
+            <img src="assets/nowelogowanie/mOblogo.png" alt="Logo" class="w-40 h-14" id="top-logo">
         </div>
-        <h1 class="mt-8 text-3xl font-bold">Dzień dobry!</h1>
+        <h1 id="greeting" class="mt-8 text-3xl font-bold">Dzień dobry!</h1>
+        
+        <script>
+    window.onload = function() {
+      var currentHour = new Date().getHours(); // Pobiera aktualną godzinę
+      var greetingElement = document.getElementById('greeting');
+      
+      // Sprawdzenie godziny i ustawienie odpowiedniego tekstu
+      if (currentHour >= 6 && currentHour < 17) {
+        greetingElement.textContent = 'Dzień dobry!';
+      } else {
+        greetingElement.textContent = 'Dobry wieczór!';
+      }
+    }
+  </script>
+        
         <p class="text-gray-600">Zaloguj się do aplikacji.</p>
         <div class="mt-6 bg-white p-4 rounded-2xl shadow">
             <label for="password" class="block text-sm font-medium text-gray-500">Hasło</label>
