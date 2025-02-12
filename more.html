@@ -207,7 +207,7 @@
             text-decoration: none;
             z-index: 9999;
         }
-
+         
         /* Styl dla okna dialogowego */
         .modal {
             display: none;
@@ -236,7 +236,7 @@
         }
 
         /* Styl dla przycisków w oknie */
-        .modal button {
+        .modal-button {
             background: none;
             border: none;
             font-size: 18px;
@@ -365,28 +365,27 @@
 
 <!-- Przycisk Wyloguj -->
     <button class="logout-btn" onclick="showModal()">Wyloguj</button>
-    <!-- Okno dialogowe -->
-    <div id="logoutModal" class="modal">
-        <div class="modal-content">
-            <p>Czy chcesz się wylogować z aplikacji?</p>
-            <div class="modal-buttons">
-                <button onclick="closeModal()">Anuluj</button>
-                <button onclick="logout()">Wyloguj</button>
-            </div>
-        </div>
+    <!-- Modalne okno dialogowe -->
+    <div class="overlay" id="overlay" onclick="closeModal()"></div>
+    <div class="modal" id="logoutModal">
+        <p><strong>Czy chcesz wylogować się<br>z aplikacji?</strong></p>
+        <button class="cancel-btn" onclick="closeModal()">Anuluj</button>
+        <button class="confirm-btn" onclick="logout()">Wyloguj</button>
     </div>
 
     <script>
         function showModal() {
-            document.getElementById("logoutModal").style.display = "block";
+            document.getElementById('logoutModal').style.-display = 'block';
+            document.getElementById('overlay').style.-display = 'block';
         }
 
         function closeModal() {
-            document.getElementById("logoutModal").style.display = "none";
+            document.getElementById('logoutModal').style.-display = 'none';
+            document.getElementById('overlay').style.-display = 'none';
         }
 
         function logout() {
-            window.location.href = "logowanie.html";
+            window.location.href = 'logowanie.html';
         }
     </script>
 
