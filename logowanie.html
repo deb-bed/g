@@ -16,12 +16,22 @@
         .kolorki {
     background-color: #024a94;
     color: #fff;
-    padding: 12px 24px; /* Powiększenie przycisku */
-    border-radius: 33px; /* Bardziej zaokrąglone rogi */
-    font-weight: bold; /* Pogrubienie tekstu */
+    padding: 12px 24px;
+    border-radius: 33px;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
-        .kolorki:active {
-    background-color: #0366d6; /* Jaśniejszy odcień */
+
+/* Rozjaśnienie po najechaniu */
+.kolorki:hover {
+    background-color: #0363c7;
+}
+
+/* Rozjaśnienie po kliknięciu */
+.kolorki:active {
+    background-color: #458cd6;
 }
 .kolorki2 {
     color: #024a94 !important;
